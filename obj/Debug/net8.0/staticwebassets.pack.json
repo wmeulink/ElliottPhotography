@@ -1,0 +1,53 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0634.JPG",
+      "PackagePath": "staticwebassets\\images\\IMG_0634.JPG"
+    },
+    {
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0679.JPG",
+      "PackagePath": "staticwebassets\\images\\IMG_0679.JPG"
+    },
+    {
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0705.JPG",
+      "PackagePath": "staticwebassets\\images\\IMG_0705.JPG"
+    },
+    {
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0721.JPG",
+      "PackagePath": "staticwebassets\\images\\IMG_0721.JPG"
+    },
+    {
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0725.JPG",
+      "PackagePath": "staticwebassets\\images\\IMG_0725.JPG"
+    },
+    {
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0733.JPG",
+      "PackagePath": "staticwebassets\\images\\IMG_0733.JPG"
+    },
+    {
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0807.JPG",
+      "PackagePath": "staticwebassets\\images\\IMG_0807.JPG"
+    },
+    {
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0810.JPG",
+      "PackagePath": "staticwebassets\\images\\IMG_0810.JPG"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ElliottPhotography.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.ElliottPhotography.props",
+      "PackagePath": "build\\ElliottPhotography.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.ElliottPhotography.props",
+      "PackagePath": "buildMultiTargeting\\ElliottPhotography.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.ElliottPhotography.props",
+      "PackagePath": "buildTransitive\\ElliottPhotography.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
