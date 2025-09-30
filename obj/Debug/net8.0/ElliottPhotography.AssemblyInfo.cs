@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ElliottPhotography")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+03ea7d4762efe473f756c2ff0a4466e2383546a6")]
 [assembly: System.Reflection.AssemblyProductAttribute("ElliottPhotography")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ElliottPhotography")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

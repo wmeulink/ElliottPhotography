@@ -23,11 +23,21 @@ namespace ElliottPhotography.Controllers
                 {
                     photo.Id,
                     photo.Title,
-                    FileName = $"/images/{System.IO.Path.GetFileName(photo.FileName)}"
+                    FileName = $"/images/{photo.FileName}"
                 })
                 .ToList();
 
             return Ok(photos);
+        }
+
+        [HttpGet("images/{fileName}")]
+        public IActionResult GetImage(string fileName)
+        {
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", fileName);
+            if (!System.IO.File.Exists(path)) return NotFound();
+
+            var fileBytes = System.IO.File.ReadAllBytes(path);
+            return File(fileBytes, "image/jpeg");
         }
 
         [HttpPost]
@@ -35,7 +45,17 @@ namespace ElliottPhotography.Controllers
         {
             _context.Photos.Add(photo);
             _context.SaveChanges();
-            return CreatedAtAction(nameof(GetPhotos), new { id = photo.Id }, photo);
+
+            // Build the absolute URL for the response
+            var result = new
+            {
+                photo.Id,
+                photo.Title,
+                FileName = $"{Request.Scheme}://{Request.Host}/images/{Path.GetFileName(photo.FileName)}"
+            };
+
+            return CreatedAtAction(nameof(GetPhotos), new { id = photo.Id }, result);
         }
+
     }
 }

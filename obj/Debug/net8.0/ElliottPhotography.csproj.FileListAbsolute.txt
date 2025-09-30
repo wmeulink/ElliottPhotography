@@ -395,3 +395,4 @@ C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\obj\Debug\net8
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\obj\Debug\net8.0\ElliottPhotography.pdb
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\obj\Debug\net8.0\ElliottPhotography.genruntimeconfig.cache
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\obj\Debug\net8.0\ref\ElliottPhotography.dll
+C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\obj\Debug\net8.0\ElliottPhotography.sourcelink.json
