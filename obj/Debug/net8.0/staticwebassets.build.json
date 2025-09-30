@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "X6J6FawCCD31ObWoKUyAO8FrKUyc3FyzDWrEhyeME7c=",
+  "Hash": "dcn2m0xsGKLFNVBzyYssPNwFZeBwfVzC5PVRZejbpSI=",
   "Source": "ElliottPhotography",
   "BasePath": "_content/ElliottPhotography",
   "Mode": "Default",
@@ -17,12 +17,12 @@
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0213.JPG",
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_0213.JPG",
       "SourceId": "ElliottPhotography",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
       "BasePath": "_content/ElliottPhotography",
-      "RelativePath": "images/IMG_0213.JPG",
+      "RelativePath": "images/full/IMG_0213.JPG",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -33,15 +33,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\IMG_0213.JPG"
+      "OriginalItemSpec": "wwwroot\\images\\full\\IMG_0213.JPG"
     },
     {
-      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0406.JPG",
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_0406.JPG",
       "SourceId": "ElliottPhotography",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
       "BasePath": "_content/ElliottPhotography",
-      "RelativePath": "images/IMG_0406.JPG",
+      "RelativePath": "images/full/IMG_0406.JPG",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -52,15 +52,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\IMG_0406.JPG"
+      "OriginalItemSpec": "wwwroot\\images\\full\\IMG_0406.JPG"
     },
     {
-      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0634.JPG",
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_0634.JPG",
       "SourceId": "ElliottPhotography",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
       "BasePath": "_content/ElliottPhotography",
-      "RelativePath": "images/IMG_0634.JPG",
+      "RelativePath": "images/full/IMG_0634.JPG",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -71,15 +71,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\IMG_0634.JPG"
+      "OriginalItemSpec": "wwwroot\\images\\full\\IMG_0634.JPG"
     },
     {
-      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0679.JPG",
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_0679.JPG",
       "SourceId": "ElliottPhotography",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
       "BasePath": "_content/ElliottPhotography",
-      "RelativePath": "images/IMG_0679.JPG",
+      "RelativePath": "images/full/IMG_0679.JPG",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -90,15 +90,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\IMG_0679.JPG"
+      "OriginalItemSpec": "wwwroot\\images\\full\\IMG_0679.JPG"
     },
     {
-      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0705.JPG",
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_0705.JPG",
       "SourceId": "ElliottPhotography",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
       "BasePath": "_content/ElliottPhotography",
-      "RelativePath": "images/IMG_0705.JPG",
+      "RelativePath": "images/full/IMG_0705.JPG",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -109,15 +109,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\IMG_0705.JPG"
+      "OriginalItemSpec": "wwwroot\\images\\full\\IMG_0705.JPG"
     },
     {
-      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0721.JPG",
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_0721.JPG",
       "SourceId": "ElliottPhotography",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
       "BasePath": "_content/ElliottPhotography",
-      "RelativePath": "images/IMG_0721.JPG",
+      "RelativePath": "images/full/IMG_0721.JPG",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -128,15 +128,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\IMG_0721.JPG"
+      "OriginalItemSpec": "wwwroot\\images\\full\\IMG_0721.JPG"
     },
     {
-      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0725.JPG",
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_0725.JPG",
       "SourceId": "ElliottPhotography",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
       "BasePath": "_content/ElliottPhotography",
-      "RelativePath": "images/IMG_0725.JPG",
+      "RelativePath": "images/full/IMG_0725.JPG",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -147,15 +147,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\IMG_0725.JPG"
+      "OriginalItemSpec": "wwwroot\\images\\full\\IMG_0725.JPG"
     },
     {
-      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0733.JPG",
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_0733.JPG",
       "SourceId": "ElliottPhotography",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
       "BasePath": "_content/ElliottPhotography",
-      "RelativePath": "images/IMG_0733.JPG",
+      "RelativePath": "images/full/IMG_0733.JPG",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -166,15 +166,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\IMG_0733.JPG"
+      "OriginalItemSpec": "wwwroot\\images\\full\\IMG_0733.JPG"
     },
     {
-      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0807.JPG",
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_0807.JPG",
       "SourceId": "ElliottPhotography",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
       "BasePath": "_content/ElliottPhotography",
-      "RelativePath": "images/IMG_0807.JPG",
+      "RelativePath": "images/full/IMG_0807.JPG",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -185,15 +185,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\IMG_0807.JPG"
+      "OriginalItemSpec": "wwwroot\\images\\full\\IMG_0807.JPG"
     },
     {
-      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0810.JPG",
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_0810.JPG",
       "SourceId": "ElliottPhotography",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
       "BasePath": "_content/ElliottPhotography",
-      "RelativePath": "images/IMG_0810.JPG",
+      "RelativePath": "images/full/IMG_0810.JPG",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -204,15 +204,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\IMG_0810.JPG"
+      "OriginalItemSpec": "wwwroot\\images\\full\\IMG_0810.JPG"
     },
     {
-      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_1586.JPG",
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_1586.JPG",
       "SourceId": "ElliottPhotography",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
       "BasePath": "_content/ElliottPhotography",
-      "RelativePath": "images/IMG_1586.JPG",
+      "RelativePath": "images/full/IMG_1586.JPG",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -223,15 +223,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\IMG_1586.JPG"
+      "OriginalItemSpec": "wwwroot\\images\\full\\IMG_1586.JPG"
     },
     {
-      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_1742.JPG",
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_1742.JPG",
       "SourceId": "ElliottPhotography",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
       "BasePath": "_content/ElliottPhotography",
-      "RelativePath": "images/IMG_1742.JPG",
+      "RelativePath": "images/full/IMG_1742.JPG",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -242,15 +242,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\IMG_1742.JPG"
+      "OriginalItemSpec": "wwwroot\\images\\full\\IMG_1742.JPG"
     },
     {
-      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_1745.JPG",
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_1745.JPG",
       "SourceId": "ElliottPhotography",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
       "BasePath": "_content/ElliottPhotography",
-      "RelativePath": "images/IMG_1745.JPG",
+      "RelativePath": "images/full/IMG_1745.JPG",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -261,15 +261,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\IMG_1745.JPG"
+      "OriginalItemSpec": "wwwroot\\images\\full\\IMG_1745.JPG"
     },
     {
-      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_2360.JPG",
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_2360.JPG",
       "SourceId": "ElliottPhotography",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
       "BasePath": "_content/ElliottPhotography",
-      "RelativePath": "images/IMG_2360.JPG",
+      "RelativePath": "images/full/IMG_2360.JPG",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -280,15 +280,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\IMG_2360.JPG"
+      "OriginalItemSpec": "wwwroot\\images\\full\\IMG_2360.JPG"
     },
     {
-      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_3486.JPG",
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_3486.JPG",
       "SourceId": "ElliottPhotography",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
       "BasePath": "_content/ElliottPhotography",
-      "RelativePath": "images/IMG_3486.JPG",
+      "RelativePath": "images/full/IMG_3486.JPG",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -299,15 +299,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\IMG_3486.JPG"
+      "OriginalItemSpec": "wwwroot\\images\\full\\IMG_3486.JPG"
     },
     {
-      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_4691.JPG",
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_4691.JPG",
       "SourceId": "ElliottPhotography",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
       "BasePath": "_content/ElliottPhotography",
-      "RelativePath": "images/IMG_4691.JPG",
+      "RelativePath": "images/full/IMG_4691.JPG",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -318,15 +318,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\IMG_4691.JPG"
+      "OriginalItemSpec": "wwwroot\\images\\full\\IMG_4691.JPG"
     },
     {
-      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_4955.JPG",
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_4955.JPG",
       "SourceId": "ElliottPhotography",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
       "BasePath": "_content/ElliottPhotography",
-      "RelativePath": "images/IMG_4955.JPG",
+      "RelativePath": "images/full/IMG_4955.JPG",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -337,15 +337,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\IMG_4955.JPG"
+      "OriginalItemSpec": "wwwroot\\images\\full\\IMG_4955.JPG"
     },
     {
-      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_7499.JPG",
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_7499.JPG",
       "SourceId": "ElliottPhotography",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
       "BasePath": "_content/ElliottPhotography",
-      "RelativePath": "images/IMG_7499.JPG",
+      "RelativePath": "images/full/IMG_7499.JPG",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -356,15 +356,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\IMG_7499.JPG"
+      "OriginalItemSpec": "wwwroot\\images\\full\\IMG_7499.JPG"
     },
     {
-      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_7508.JPG",
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_7508.JPG",
       "SourceId": "ElliottPhotography",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
       "BasePath": "_content/ElliottPhotography",
-      "RelativePath": "images/IMG_7508.JPG",
+      "RelativePath": "images/full/IMG_7508.JPG",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -375,15 +375,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\IMG_7508.JPG"
+      "OriginalItemSpec": "wwwroot\\images\\full\\IMG_7508.JPG"
     },
     {
-      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_7526.JPG",
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_7526.JPG",
       "SourceId": "ElliottPhotography",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
       "BasePath": "_content/ElliottPhotography",
-      "RelativePath": "images/IMG_7526.JPG",
+      "RelativePath": "images/full/IMG_7526.JPG",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -394,15 +394,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\IMG_7526.JPG"
+      "OriginalItemSpec": "wwwroot\\images\\full\\IMG_7526.JPG"
     },
     {
-      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_7530.JPG",
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_7530.JPG",
       "SourceId": "ElliottPhotography",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
       "BasePath": "_content/ElliottPhotography",
-      "RelativePath": "images/IMG_7530.JPG",
+      "RelativePath": "images/full/IMG_7530.JPG",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -413,15 +413,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\IMG_7530.JPG"
+      "OriginalItemSpec": "wwwroot\\images\\full\\IMG_7530.JPG"
     },
     {
-      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_7655.JPG",
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_7655.JPG",
       "SourceId": "ElliottPhotography",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
       "BasePath": "_content/ElliottPhotography",
-      "RelativePath": "images/IMG_7655.JPG",
+      "RelativePath": "images/full/IMG_7655.JPG",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -432,7 +432,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\IMG_7655.JPG"
+      "OriginalItemSpec": "wwwroot\\images\\full\\IMG_7655.JPG"
+    },
+    {
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\thumbs\\IMG_0634.JPG",
+      "SourceId": "ElliottPhotography",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
+      "BasePath": "_content/ElliottPhotography",
+      "RelativePath": "images/thumbs/IMG_0634.JPG",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\thumbs\\IMG_0634.JPG"
     }
   ]
 }

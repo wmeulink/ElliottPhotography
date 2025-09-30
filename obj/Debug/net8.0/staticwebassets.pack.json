@@ -1,92 +1,96 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0213.JPG",
-      "PackagePath": "staticwebassets\\images\\IMG_0213.JPG"
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_0213.JPG",
+      "PackagePath": "staticwebassets\\images\\full\\IMG_0213.JPG"
     },
     {
-      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0406.JPG",
-      "PackagePath": "staticwebassets\\images\\IMG_0406.JPG"
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_0406.JPG",
+      "PackagePath": "staticwebassets\\images\\full\\IMG_0406.JPG"
     },
     {
-      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0634.JPG",
-      "PackagePath": "staticwebassets\\images\\IMG_0634.JPG"
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_0634.JPG",
+      "PackagePath": "staticwebassets\\images\\full\\IMG_0634.JPG"
     },
     {
-      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0679.JPG",
-      "PackagePath": "staticwebassets\\images\\IMG_0679.JPG"
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_0679.JPG",
+      "PackagePath": "staticwebassets\\images\\full\\IMG_0679.JPG"
     },
     {
-      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0705.JPG",
-      "PackagePath": "staticwebassets\\images\\IMG_0705.JPG"
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_0705.JPG",
+      "PackagePath": "staticwebassets\\images\\full\\IMG_0705.JPG"
     },
     {
-      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0721.JPG",
-      "PackagePath": "staticwebassets\\images\\IMG_0721.JPG"
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_0721.JPG",
+      "PackagePath": "staticwebassets\\images\\full\\IMG_0721.JPG"
     },
     {
-      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0725.JPG",
-      "PackagePath": "staticwebassets\\images\\IMG_0725.JPG"
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_0725.JPG",
+      "PackagePath": "staticwebassets\\images\\full\\IMG_0725.JPG"
     },
     {
-      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0733.JPG",
-      "PackagePath": "staticwebassets\\images\\IMG_0733.JPG"
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_0733.JPG",
+      "PackagePath": "staticwebassets\\images\\full\\IMG_0733.JPG"
     },
     {
-      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0807.JPG",
-      "PackagePath": "staticwebassets\\images\\IMG_0807.JPG"
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_0807.JPG",
+      "PackagePath": "staticwebassets\\images\\full\\IMG_0807.JPG"
     },
     {
-      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_0810.JPG",
-      "PackagePath": "staticwebassets\\images\\IMG_0810.JPG"
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_0810.JPG",
+      "PackagePath": "staticwebassets\\images\\full\\IMG_0810.JPG"
     },
     {
-      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_1586.JPG",
-      "PackagePath": "staticwebassets\\images\\IMG_1586.JPG"
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_1586.JPG",
+      "PackagePath": "staticwebassets\\images\\full\\IMG_1586.JPG"
     },
     {
-      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_1742.JPG",
-      "PackagePath": "staticwebassets\\images\\IMG_1742.JPG"
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_1742.JPG",
+      "PackagePath": "staticwebassets\\images\\full\\IMG_1742.JPG"
     },
     {
-      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_1745.JPG",
-      "PackagePath": "staticwebassets\\images\\IMG_1745.JPG"
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_1745.JPG",
+      "PackagePath": "staticwebassets\\images\\full\\IMG_1745.JPG"
     },
     {
-      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_2360.JPG",
-      "PackagePath": "staticwebassets\\images\\IMG_2360.JPG"
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_2360.JPG",
+      "PackagePath": "staticwebassets\\images\\full\\IMG_2360.JPG"
     },
     {
-      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_3486.JPG",
-      "PackagePath": "staticwebassets\\images\\IMG_3486.JPG"
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_3486.JPG",
+      "PackagePath": "staticwebassets\\images\\full\\IMG_3486.JPG"
     },
     {
-      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_4691.JPG",
-      "PackagePath": "staticwebassets\\images\\IMG_4691.JPG"
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_4691.JPG",
+      "PackagePath": "staticwebassets\\images\\full\\IMG_4691.JPG"
     },
     {
-      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_4955.JPG",
-      "PackagePath": "staticwebassets\\images\\IMG_4955.JPG"
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_4955.JPG",
+      "PackagePath": "staticwebassets\\images\\full\\IMG_4955.JPG"
     },
     {
-      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_7499.JPG",
-      "PackagePath": "staticwebassets\\images\\IMG_7499.JPG"
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_7499.JPG",
+      "PackagePath": "staticwebassets\\images\\full\\IMG_7499.JPG"
     },
     {
-      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_7508.JPG",
-      "PackagePath": "staticwebassets\\images\\IMG_7508.JPG"
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_7508.JPG",
+      "PackagePath": "staticwebassets\\images\\full\\IMG_7508.JPG"
     },
     {
-      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_7526.JPG",
-      "PackagePath": "staticwebassets\\images\\IMG_7526.JPG"
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_7526.JPG",
+      "PackagePath": "staticwebassets\\images\\full\\IMG_7526.JPG"
     },
     {
-      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_7530.JPG",
-      "PackagePath": "staticwebassets\\images\\IMG_7530.JPG"
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_7530.JPG",
+      "PackagePath": "staticwebassets\\images\\full\\IMG_7530.JPG"
     },
     {
-      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\IMG_7655.JPG",
-      "PackagePath": "staticwebassets\\images\\IMG_7655.JPG"
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_7655.JPG",
+      "PackagePath": "staticwebassets\\images\\full\\IMG_7655.JPG"
+    },
+    {
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\thumbs\\IMG_0634.JPG",
+      "PackagePath": "staticwebassets\\images\\thumbs\\IMG_0634.JPG"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ElliottPhotography.Microsoft.AspNetCore.StaticWebAssets.props",

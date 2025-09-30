@@ -230,6 +230,7 @@ C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\bin\Debug\net8
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\bin\Debug\net8.0\Microsoft.Identity.Client.dll
@@ -243,6 +244,7 @@ C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\bin\Debug\net8
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\bin\Debug\net8.0\Microsoft.OpenApi.dll
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\bin\Debug\net8.0\Mono.TextTemplating.dll
+C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\bin\Debug\net8.0\SixLabors.ImageSharp.dll
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\bin\Debug\net8.0\SQLitePCLRaw.batteries_v2.dll
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\bin\Debug\net8.0\SQLitePCLRaw.core.dll
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\bin\Debug\net8.0\SQLitePCLRaw.provider.e_sqlite3.dll
@@ -381,6 +383,7 @@ C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\obj\Debug\net8
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\obj\Debug\net8.0\ElliottPhotography.csproj.CoreCompileInputs.cache
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\obj\Debug\net8.0\ElliottPhotography.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\obj\Debug\net8.0\ElliottPhotography.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\obj\Debug\net8.0\ElliottPhotography.sourcelink.json
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\obj\Debug\net8.0\staticwebassets\msbuild.ElliottPhotography.Microsoft.AspNetCore.StaticWebAssets.props
@@ -395,4 +398,3 @@ C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\obj\Debug\net8
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\obj\Debug\net8.0\ElliottPhotography.pdb
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\obj\Debug\net8.0\ElliottPhotography.genruntimeconfig.cache
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\obj\Debug\net8.0\ref\ElliottPhotography.dll
-C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\obj\Debug\net8.0\ElliottPhotography.sourcelink.json
