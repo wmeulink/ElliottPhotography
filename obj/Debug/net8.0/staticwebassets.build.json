@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "dcn2m0xsGKLFNVBzyYssPNwFZeBwfVzC5PVRZejbpSI=",
+  "Hash": "5dxUHHCbMwctph882mttEIPO/WvFzCd58u0aVcEkae4=",
   "Source": "ElliottPhotography",
   "BasePath": "_content/ElliottPhotography",
   "Mode": "Default",
@@ -433,6 +433,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\full\\IMG_7655.JPG"
+    },
+    {
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\optimized-IMG_0634.JPG",
+      "SourceId": "ElliottPhotography",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
+      "BasePath": "_content/ElliottPhotography",
+      "RelativePath": "images/full/optimized-IMG_0634.JPG",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\full\\optimized-IMG_0634.JPG"
     },
     {
       "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\thumbs\\IMG_0634.JPG",
