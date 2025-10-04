@@ -27,7 +27,7 @@ using System.Collections.Generic;
                 // Example: configure Landscapes if you want
                 modelBuilder.Entity<Landscape>(entity =>
                 {
-                    entity.Property(e => e.Filename)
+                    entity.Property(e => e.FileName)
                         .IsRequired()
                         .HasMaxLength(255);
 

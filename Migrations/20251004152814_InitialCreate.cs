@@ -45,6 +45,23 @@ namespace ElliottPhotography.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Landscapes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FileName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    UploadedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Landscapes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Photos",
                 columns: table => new
                 {
@@ -68,6 +85,9 @@ namespace ElliottPhotography.Migrations
 
             migrationBuilder.DropTable(
                 name: "ContactMessages");
+
+            migrationBuilder.DropTable(
+                name: "Landscapes");
 
             migrationBuilder.DropTable(
                 name: "Photos");

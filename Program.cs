@@ -1,6 +1,7 @@
 using ElliottPhotography.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,30 +26,35 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// ?? Ensure DB exists and migrations are applied
+// Ensure DB exists and migrations are applied
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
-    // Print out which DB you’re connected to
-    Console.WriteLine($"?? Connected to DB: {db.Database.GetDbConnection().Database}");
-
-    // Apply pending migrations automatically
+    Console.WriteLine($"Connected to DB: {db.Database.GetDbConnection().Database}");
     db.Database.Migrate();
 }
 
-// Configure the HTTP request pipeline.
+// Configure HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+app.UseStaticFiles(); // Serves wwwroot by default
+
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
-        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images")),
-    RequestPath = "/images"
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "thumbs")),
+    RequestPath = "/images/thumbnails"
+});
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "full")),
+    RequestPath = "/images/full"
 });
 
 app.UseHttpsRedirection();
