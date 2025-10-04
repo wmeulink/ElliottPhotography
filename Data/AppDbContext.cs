@@ -20,6 +20,8 @@ using System.Collections.Generic;
         public DbSet<ContactMessage> ContactMessages { get; set; }
         public DbSet<AppointmentRequest> AppointmentRequests { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
                 base.OnModelCreating(modelBuilder);
