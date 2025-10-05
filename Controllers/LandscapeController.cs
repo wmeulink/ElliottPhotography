@@ -24,9 +24,9 @@ namespace ElliottPhotography.Controllers
             _env = env;
         }
 
-        // ✅ GET: api/Landscapes
+        // GET: api/Landscapes
         [HttpGet]
-        public IActionResult GetLandscapes()
+        public IActionResult GetAllLandscapes()
         {
             var landscapes = _context.Landscapes
                 .Include(l => l.Category)
@@ -46,7 +46,18 @@ namespace ElliottPhotography.Controllers
             return Ok(landscapes);
         }
 
-        // ✅ GET: api/Landscapes/category/{categoryName}
+        // GET: api/Landscapes/categories
+        [HttpGet("categories")]
+        public IActionResult GetCategories()
+        {
+            var categories = _context.Categories
+                .Select(c => new { c.Id, c.Name })
+                .ToList();
+
+            return Ok(categories);
+        }
+
+        // GET: api/Landscapes/by-category/{categoryName}
         [HttpGet("category/{categoryName}")]
         public IActionResult GetLandscapesByCategory(string categoryName)
         {
@@ -75,18 +86,7 @@ namespace ElliottPhotography.Controllers
             return Ok(landscapes);
         }
 
-        // ✅ GET: api/Landscapes/categories
-        [HttpGet("categories")]
-        public IActionResult GetCategories()
-        {
-            var categories = _context.Categories
-                .Select(c => new { c.Id, c.Name })
-                .ToList();
-
-            return Ok(categories);
-        }
-
-        // ✅ POST: api/Landscapes
+        // POST: api/Landscapes
         [HttpPost]
         public IActionResult AddLandscape([FromBody] LandscapeUploadDto dto)
         {
@@ -131,7 +131,7 @@ namespace ElliottPhotography.Controllers
 
             var categoryName = _context.Categories.FirstOrDefault(c => c.Id == landscape.CategoryId)?.Name;
 
-            return CreatedAtAction(nameof(GetLandscapes), new { id = landscape.Id }, new LandscapeResponseDto
+            return CreatedAtAction(nameof(GetAllLandscapes), new { id = landscape.Id }, new LandscapeResponseDto
             {
                 Id = landscape.Id,
                 Title = landscape.Title,

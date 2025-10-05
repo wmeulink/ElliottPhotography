@@ -125,6 +125,10 @@
       "PackagePath": "staticwebassets\\images\\full\\optimized-IMG_1906.JPG"
     },
     {
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\optimized-IMG_3486.JPG",
+      "PackagePath": "staticwebassets\\images\\full\\optimized-IMG_3486.JPG"
+    },
+    {
       "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\optimized-IMG_4691.JPG",
       "PackagePath": "staticwebassets\\images\\full\\optimized-IMG_4691.JPG"
     },
@@ -139,6 +143,14 @@
     {
       "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\thumbnails\\IMG_0213.JPG",
       "PackagePath": "staticwebassets\\images\\thumbnails\\IMG_0213.JPG"
+    },
+    {
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\thumbnails\\IMG_0406.JPG",
+      "PackagePath": "staticwebassets\\images\\thumbnails\\IMG_0406.JPG"
+    },
+    {
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\thumbnails\\IMG_1745.JPG",
+      "PackagePath": "staticwebassets\\images\\thumbnails\\IMG_1745.JPG"
     },
     {
       "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\thumbnails\\IMG_3486.JPG",
@@ -179,6 +191,10 @@
     {
       "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\thumbs\\IMG_1997.JPG",
       "PackagePath": "staticwebassets\\images\\thumbs\\IMG_1997.JPG"
+    },
+    {
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\thumbs\\IMG_3486.JPG",
+      "PackagePath": "staticwebassets\\images\\thumbs\\IMG_3486.JPG"
     },
     {
       "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\thumbs\\IMG_4691.JPG",
