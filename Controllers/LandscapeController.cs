@@ -80,9 +80,7 @@ namespace ElliottPhotography.Controllers
                 })
                 .ToList();
 
-            if (!landscapes.Any())
-                return NotFound(new { message = $"No landscapes found for category '{categoryName}'." });
-
+            // Always return 200 with an array, even if empty
             return Ok(landscapes);
         }
 
