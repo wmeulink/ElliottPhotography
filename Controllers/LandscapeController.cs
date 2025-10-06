@@ -84,6 +84,38 @@ namespace ElliottPhotography.Controllers
             return Ok(landscapes);
         }
 
+        [HttpPost("upload")]
+        public async Task<IActionResult> UploadImage([FromForm] IFormFile file, [FromForm] int categoryId, [FromForm] string title, [FromForm] string description)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest("No file uploaded.");
+
+            var uploadsPath = Path.Combine(_env.WebRootPath, "images", "full");
+            if (!Directory.Exists(uploadsPath))
+                Directory.CreateDirectory(uploadsPath);
+
+            var fileName = Path.GetFileName(file.FileName);
+            var filePath = Path.Combine(uploadsPath, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            var landscape = new Landscape
+            {
+                Title = title,
+                Description = description,
+                FileName = fileName,
+                CategoryId = categoryId
+            };
+
+            _context.Landscapes.Add(landscape);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Image uploaded successfully!" });
+        }
+
         // POST: api/Landscapes
         [HttpPost]
         public IActionResult AddLandscape([FromBody] LandscapeUploadDto dto)
