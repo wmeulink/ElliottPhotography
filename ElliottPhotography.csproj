@@ -22,6 +22,8 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\thumbnails\" />
+    <Folder Include="wwwroot\portraits\full\" />
+    <Folder Include="wwwroot\portraits\thumbs\" />
   </ItemGroup>
 
 </Project>

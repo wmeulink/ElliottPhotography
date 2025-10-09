@@ -21,6 +21,7 @@ using System.Collections.Generic;
         public DbSet<AppointmentRequest> AppointmentRequests { get; set; }
 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Portrait> Portraits { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
