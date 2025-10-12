@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("elliottphotography-secrets")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("ElliottPhotography")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+72b9e249642d1793a563d5686c22f29921bef94b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c93e9adb651033bfe8c3987a5dafa3dc6838a40c")]
 [assembly: System.Reflection.AssemblyProductAttribute("ElliottPhotography")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ElliottPhotography")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -20,6 +20,7 @@ using System.Collections.Generic;
         public DbSet<ContactMessage> ContactMessages { get; set; }
         public DbSet<AppointmentRequest> AppointmentRequests { get; set; }
 
+        public DbSet<EmailSettings> EmailSettings { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Portrait> Portraits { get; set; }
 
