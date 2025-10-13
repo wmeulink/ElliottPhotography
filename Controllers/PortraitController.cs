@@ -44,54 +44,93 @@ namespace YourAppNamespace.Controllers
             return Ok(portraits);
         }
 
-        // ✅ POST: api/Portraits
-        [HttpPost]
-        public IActionResult AddPortrait([FromBody] PortraitUploadDto dto)
+        // GET: api/Portraits/categories
+        [HttpGet("categories")]
+        public async Task<IActionResult> GetCategories()
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            var categories = await _context.Categories.ToListAsync();
+            return Ok(categories);
+        }
 
-            // 👉 Correct folder structure (NOT under /images)
+        // ✅ POST: api/Portraits
+        [HttpPost("upload")]
+        public async Task<IActionResult> UploadPortrait(
+      [FromForm] IFormFile file,
+      [FromForm] int categoryId,
+      [FromForm] string title,
+      [FromForm] string description,
+      [FromForm] string tagNames // comma-separated tags
+  )
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest("No file uploaded.");
+
+            // Prepare folders
             var uploadsFull = Path.Combine(_env.WebRootPath, "portraits", "full");
             var uploadsThumb = Path.Combine(_env.WebRootPath, "portraits", "thumbs");
-
             Directory.CreateDirectory(uploadsFull);
             Directory.CreateDirectory(uploadsThumb);
 
-            var fullPath = Path.Combine(uploadsFull, dto.FileName);
-            var thumbPath = Path.Combine(uploadsThumb, dto.FileName);
+            // Normalize extension to .jpg
+            var fileName = Path.GetFileNameWithoutExtension(file.FileName) + ".jpg";
+            var fullPath = Path.Combine(uploadsFull, fileName);
+            var thumbPath = Path.Combine(uploadsThumb, fileName);
 
-            if (!System.IO.File.Exists(fullPath))
-                return NotFound(new { error = "Full image file not found on server." });
+            // Save full image as JPG
+            using (var image = Image.Load(file.OpenReadStream()))
+            {
+                image.Save(fullPath, new JpegEncoder { Quality = 90 });
+            }
 
             // Create thumbnail if missing
             if (!System.IO.File.Exists(thumbPath))
             {
-                using var image = Image.Load(fullPath);
-                image.Mutate(x => x.Resize(new ResizeOptions
+                using var thumbImage = Image.Load(fullPath);
+                thumbImage.Mutate(x => x.Resize(new ResizeOptions
                 {
                     Mode = ResizeMode.Max,
                     Size = new Size(400, 0)
                 }));
-                image.Save(thumbPath, new JpegEncoder { Quality = 70 });
+                thumbImage.Save(thumbPath, new JpegEncoder { Quality = 70 });
             }
 
+            // Create Portrait
             var portrait = new Portrait
             {
-                Title = dto.Title,
-                FileName = dto.FileName,
+                Title = title,
+                FileName = fileName,
                 UploadedAt = DateTime.UtcNow,
-                Description = dto.Description ?? "No description provided.",
-                CategoryId = dto.CategoryId
+                Description = string.IsNullOrWhiteSpace(description) ? "No description provided." : description,
+                CategoryId = categoryId
             };
 
+            // Handle multiple tags
+            if (!string.IsNullOrWhiteSpace(tagNames))
+            {
+                var tagsArray = tagNames.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (var tagName in tagsArray)
+                {
+                    var existingTag = await _context.Tags.FirstOrDefaultAsync(t => t.Name.ToLower() == tagName.ToLower());
+                    if (existingTag == null)
+                    {
+                        existingTag = new Tag { Name = tagName };
+                        _context.Tags.Add(existingTag);
+                        await _context.SaveChangesAsync();
+                    }
+                    if (!portrait.Tags.Any(t => t.Name.ToLower() == existingTag.Name.ToLower()))
+                        portrait.Tags.Add(existingTag);
+                }
+            }
+
             _context.Portraits.Add(portrait);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             var categoryName = _context.Categories
                 .FirstOrDefault(c => c.Id == portrait.CategoryId)?.Name ?? "Uncategorized";
 
-            return CreatedAtAction(nameof(AddPortrait), new PortraitResponseDto
+            // Return the full response DTO
+            return CreatedAtAction(nameof(UploadPortrait), new PortraitResponseDto
             {
                 Id = portrait.Id,
                 Title = portrait.Title,
@@ -103,6 +142,8 @@ namespace YourAppNamespace.Controllers
                 Description = portrait.Description
             });
         }
+
+
         [HttpGet("category/{category}")]
         public IActionResult GetByCategory(string category)
         {
@@ -130,7 +171,6 @@ namespace YourAppNamespace.Controllers
 
             return Ok(portraits);
         }
-
 
     }
 

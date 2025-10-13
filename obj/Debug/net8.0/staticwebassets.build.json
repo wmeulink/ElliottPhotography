@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ZdjK4CdYibyLrGTHA9rIPCJOL54/heH8QoqqnMfUR4Y=",
+  "Hash": "z/mAUgmF0BretKFospkZvtjCY1yZiqaW6sB0V2RtECo=",
   "Source": "ElliottPhotography",
   "BasePath": "_content/ElliottPhotography",
   "Mode": "Default",
@@ -1119,6 +1119,25 @@
       "OriginalItemSpec": "wwwroot\\images\\full\\IMG_4023.JPG"
     },
     {
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_4024.jpg",
+      "SourceId": "ElliottPhotography",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
+      "BasePath": "_content/ElliottPhotography",
+      "RelativePath": "images/full/IMG_4024.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\full\\IMG_4024.jpg"
+    },
+    {
       "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\full\\IMG_4395.JPG",
       "SourceId": "ElliottPhotography",
       "SourceType": "Discovered",
@@ -1801,6 +1820,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\thumbnails\\IMG_3920.JPG"
+    },
+    {
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\thumbnails\\IMG_4024.jpg",
+      "SourceId": "ElliottPhotography",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
+      "BasePath": "_content/ElliottPhotography",
+      "RelativePath": "images/thumbnails/IMG_4024.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\thumbnails\\IMG_4024.jpg"
     },
     {
       "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\thumbnails\\IMG_4691.JPG",
@@ -3266,6 +3304,25 @@
       "OriginalItemSpec": "wwwroot\\portraits\\full\\IMG_4024.jpeg"
     },
     {
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\portraits\\full\\IMG_4024.jpg",
+      "SourceId": "ElliottPhotography",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
+      "BasePath": "_content/ElliottPhotography",
+      "RelativePath": "portraits/full/IMG_4024.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\portraits\\full\\IMG_4024.jpg"
+    },
+    {
       "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\portraits\\full\\IMG_4684.jpeg",
       "SourceId": "ElliottPhotography",
       "SourceType": "Discovered",
@@ -3378,6 +3435,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\portraits\\thumbs\\IMG_4024.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\portraits\\thumbs\\IMG_4024.jpg",
+      "SourceId": "ElliottPhotography",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\",
+      "BasePath": "_content/ElliottPhotography",
+      "RelativePath": "portraits/thumbs/IMG_4024.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\portraits\\thumbs\\IMG_4024.jpg"
     },
     {
       "Identity": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\portraits\\thumbs\\IMG_4684.jpeg",

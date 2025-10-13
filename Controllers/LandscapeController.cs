@@ -3,11 +3,7 @@ using ElliottPhotography.Models;
 using ElliottPhotography.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Jpeg;
-using SixLabors.ImageSharp.Processing;
-using System.IO;
-using System.Linq;
 
 namespace ElliottPhotography.Controllers
 {
@@ -85,55 +81,33 @@ namespace ElliottPhotography.Controllers
         }
 
         [HttpPost("upload")]
-        public async Task<IActionResult> UploadImage([FromForm] IFormFile file, [FromForm] int categoryId, [FromForm] string title, [FromForm] string description)
+        public async Task<IActionResult> UploadLandscape(
+            [FromForm] IFormFile file,
+            [FromForm] int categoryId,
+            [FromForm] string title,
+            [FromForm] string description,
+            [FromForm] string tagNames // comma-separated tags
+        )
         {
             if (file == null || file.Length == 0)
                 return BadRequest("No file uploaded.");
 
-            var uploadsPath = Path.Combine(_env.WebRootPath, "images", "full");
-            if (!Directory.Exists(uploadsPath))
-                Directory.CreateDirectory(uploadsPath);
-
-            var fileName = Path.GetFileName(file.FileName);
-            var filePath = Path.Combine(uploadsPath, fileName);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
-
-            var landscape = new Landscape
-            {
-                Title = title,
-                Description = description,
-                FileName = fileName,
-                CategoryId = categoryId
-            };
-
-            _context.Landscapes.Add(landscape);
-            await _context.SaveChangesAsync();
-
-            return Ok(new { message = "Image uploaded successfully!" });
-        }
-
-        // POST: api/Landscapes
-        [HttpPost]
-        public IActionResult AddLandscape([FromBody] LandscapeUploadDto dto)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var uploadsFull = Path.Combine(_env.WebRootPath, "images/full");
-            var uploadsThumb = Path.Combine(_env.WebRootPath, "images/thumbnails");
-
+            // Prepare folders
+            var uploadsFull = Path.Combine(_env.WebRootPath, "images", "full");
+            var uploadsThumb = Path.Combine(_env.WebRootPath, "images", "thumbnails");
             Directory.CreateDirectory(uploadsFull);
             Directory.CreateDirectory(uploadsThumb);
 
-            var fullPath = Path.Combine(uploadsFull, dto.FileName);
-            var thumbPath = Path.Combine(uploadsThumb, dto.FileName);
+            // Normalize extension to .jpg
+            var fileName = Path.GetFileNameWithoutExtension(file.FileName) + ".jpg";
+            var fullPath = Path.Combine(uploadsFull, fileName);
+            var thumbPath = Path.Combine(uploadsThumb, fileName);
 
-            if (!System.IO.File.Exists(fullPath))
-                return NotFound(new { error = "Full image file not found on server." });
+            // Save full image as JPG
+            using (var image = Image.Load(file.OpenReadStream()))
+            {
+                image.Save(fullPath, new JpegEncoder { Quality = 90 });
+            }
 
             // Create thumbnail if missing
             if (!System.IO.File.Exists(thumbPath))
@@ -147,21 +121,43 @@ namespace ElliottPhotography.Controllers
                 thumbImage.Save(thumbPath, new JpegEncoder { Quality = 70 });
             }
 
+            // Create Landscape
             var landscape = new Landscape
             {
-                Title = dto.Title,
-                FileName = dto.FileName,
+                Title = title,
+                FileName = fileName,
                 UploadedAt = DateTime.UtcNow,
-                Description = dto.Description ?? "No description provided.",
-                CategoryId = dto.CategoryId
+                Description = string.IsNullOrWhiteSpace(description) ? "No description provided." : description,
+                CategoryId = categoryId
             };
 
+            // Handle multiple tags
+            if (!string.IsNullOrWhiteSpace(tagNames))
+            {
+                var tagsArray = tagNames.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (var tagName in tagsArray)
+                {
+                    var existingTag = await _context.Tags.FirstOrDefaultAsync(t => t.Name.ToLower() == tagName.ToLower());
+                    if (existingTag == null)
+                    {
+                        existingTag = new Tag { Name = tagName };
+                        _context.Tags.Add(existingTag);
+                        await _context.SaveChangesAsync();
+                    }
+                    if (!landscape.Tags.Any(t => t.Name.ToLower() == existingTag.Name.ToLower()))
+                        landscape.Tags.Add(existingTag);
+                }
+            }
+
             _context.Landscapes.Add(landscape);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
-            var categoryName = _context.Categories.FirstOrDefault(c => c.Id == landscape.CategoryId)?.Name;
+            var categoryName = _context.Categories
+                .FirstOrDefault(c => c.Id == landscape.CategoryId)?.Name ?? "Uncategorized";
 
-            return CreatedAtAction(nameof(GetAllLandscapes), new { id = landscape.Id }, new LandscapeResponseDto
+            // Return the full response DTO
+            return CreatedAtAction(nameof(UploadLandscape), new LandscapeResponseDto
             {
                 Id = landscape.Id,
                 Title = landscape.Title,
@@ -173,5 +169,6 @@ namespace ElliottPhotography.Controllers
                 Description = landscape.Description
             });
         }
+
     }
 }

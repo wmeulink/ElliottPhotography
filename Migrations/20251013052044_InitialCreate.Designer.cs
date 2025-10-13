@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ElliottPhotography.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251012185506_EmailSettings")]
-    partial class EmailSettings
+    [Migration("20251013052044_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,31 +24,6 @@ namespace ElliottPhotography.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("ElliottPhotography.Models.AppointmentRequest", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("PreferredDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AppointmentRequests");
-                });
 
             modelBuilder.Entity("ElliottPhotography.Models.Category", b =>
                 {
@@ -194,6 +169,24 @@ namespace ElliottPhotography.Migrations
                     b.ToTable("Portraits");
                 });
 
+            modelBuilder.Entity("ElliottPhotography.Models.Tag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tags");
+                });
+
             modelBuilder.Entity("EmailSettings", b =>
                 {
                     b.Property<int>("Id")
@@ -225,6 +218,36 @@ namespace ElliottPhotography.Migrations
                     b.ToTable("EmailSettings");
                 });
 
+            modelBuilder.Entity("LandscapeTag", b =>
+                {
+                    b.Property<int>("LandscapesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LandscapesId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("LandscapeTags", (string)null);
+                });
+
+            modelBuilder.Entity("PortraitTag", b =>
+                {
+                    b.Property<int>("PortraitsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PortraitsId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("PortraitTags", (string)null);
+                });
+
             modelBuilder.Entity("ElliottPhotography.Models.Landscape", b =>
                 {
                     b.HasOne("ElliottPhotography.Models.Category", "Category")
@@ -239,7 +262,7 @@ namespace ElliottPhotography.Migrations
             modelBuilder.Entity("ElliottPhotography.Models.Portrait", b =>
                 {
                     b.HasOne("ElliottPhotography.Models.Category", "Category")
-                        .WithMany()
+                        .WithMany("Portraits")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -247,9 +270,41 @@ namespace ElliottPhotography.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("LandscapeTag", b =>
+                {
+                    b.HasOne("ElliottPhotography.Models.Landscape", null)
+                        .WithMany()
+                        .HasForeignKey("LandscapesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ElliottPhotography.Models.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PortraitTag", b =>
+                {
+                    b.HasOne("ElliottPhotography.Models.Portrait", null)
+                        .WithMany()
+                        .HasForeignKey("PortraitsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ElliottPhotography.Models.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ElliottPhotography.Models.Category", b =>
                 {
                     b.Navigation("Landscapes");
+
+                    b.Navigation("Portraits");
                 });
 #pragma warning restore 612, 618
         }
