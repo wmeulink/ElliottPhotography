@@ -361,8 +361,20 @@
       "PackagePath": "staticwebassets\\images\\thumbnails\\IMG_3318.JPG"
     },
     {
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\thumbnails\\IMG_3320.jpg",
+      "PackagePath": "staticwebassets\\images\\thumbnails\\IMG_3320.jpg"
+    },
+    {
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\thumbnails\\IMG_3321.jpg",
+      "PackagePath": "staticwebassets\\images\\thumbnails\\IMG_3321.jpg"
+    },
+    {
       "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\thumbnails\\IMG_3363.JPG",
       "PackagePath": "staticwebassets\\images\\thumbnails\\IMG_3363.JPG"
+    },
+    {
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\thumbnails\\IMG_3417.jpg",
+      "PackagePath": "staticwebassets\\images\\thumbnails\\IMG_3417.jpg"
     },
     {
       "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\thumbnails\\IMG_3442.JPG",
@@ -379,6 +391,10 @@
     {
       "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\thumbnails\\IMG_3920.JPG",
       "PackagePath": "staticwebassets\\images\\thumbnails\\IMG_3920.JPG"
+    },
+    {
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\thumbnails\\IMG_4023.jpg",
+      "PackagePath": "staticwebassets\\images\\thumbnails\\IMG_4023.jpg"
     },
     {
       "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\images\\thumbnails\\IMG_4024.jpg",
@@ -677,6 +693,10 @@
       "PackagePath": "staticwebassets\\portraits\\full\\IMG_1494.jpeg"
     },
     {
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\portraits\\full\\IMG_1494.jpg",
+      "PackagePath": "staticwebassets\\portraits\\full\\IMG_1494.jpg"
+    },
+    {
       "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\portraits\\full\\IMG_2222.jpg",
       "PackagePath": "staticwebassets\\portraits\\full\\IMG_2222.jpg"
     },
@@ -687,6 +707,10 @@
     {
       "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\portraits\\full\\IMG_3293.jpeg",
       "PackagePath": "staticwebassets\\portraits\\full\\IMG_3293.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\portraits\\full\\IMG_3293.jpg",
+      "PackagePath": "staticwebassets\\portraits\\full\\IMG_3293.jpg"
     },
     {
       "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\portraits\\full\\IMG_4024.jpeg",
@@ -701,8 +725,16 @@
       "PackagePath": "staticwebassets\\portraits\\full\\IMG_4684.jpeg"
     },
     {
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\portraits\\full\\IMG_4684.jpg",
+      "PackagePath": "staticwebassets\\portraits\\full\\IMG_4684.jpg"
+    },
+    {
       "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\portraits\\thumbs\\IMG_1494.jpeg",
       "PackagePath": "staticwebassets\\portraits\\thumbs\\IMG_1494.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\portraits\\thumbs\\IMG_1494.jpg",
+      "PackagePath": "staticwebassets\\portraits\\thumbs\\IMG_1494.jpg"
     },
     {
       "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\portraits\\thumbs\\IMG_2222.jpg",
@@ -717,6 +749,10 @@
       "PackagePath": "staticwebassets\\portraits\\thumbs\\IMG_3293.jpeg"
     },
     {
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\portraits\\thumbs\\IMG_3293.jpg",
+      "PackagePath": "staticwebassets\\portraits\\thumbs\\IMG_3293.jpg"
+    },
+    {
       "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\portraits\\thumbs\\IMG_4024.jpeg",
       "PackagePath": "staticwebassets\\portraits\\thumbs\\IMG_4024.jpeg"
     },
@@ -727,6 +763,10 @@
     {
       "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\portraits\\thumbs\\IMG_4684.jpeg",
       "PackagePath": "staticwebassets\\portraits\\thumbs\\IMG_4684.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\wmeul\\source\\repos\\ElliottPhotography\\ElliottPhotography\\wwwroot\\portraits\\thumbs\\IMG_4684.jpg",
+      "PackagePath": "staticwebassets\\portraits\\thumbs\\IMG_4684.jpg"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ElliottPhotography.Microsoft.AspNetCore.StaticWebAssets.props",

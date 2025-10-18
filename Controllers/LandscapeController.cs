@@ -3,6 +3,8 @@ using ElliottPhotography.Models;
 using ElliottPhotography.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Formats.Jpeg;
 
 namespace ElliottPhotography.Controllers
@@ -12,126 +14,103 @@ namespace ElliottPhotography.Controllers
     public class LandscapesController : ControllerBase
     {
         private readonly AppDbContext _context;
-        private readonly IWebHostEnvironment _env;
 
-        public LandscapesController(AppDbContext context, IWebHostEnvironment env)
+        public LandscapesController(AppDbContext context)
         {
             _context = context;
-            _env = env;
         }
 
         // GET: api/Landscapes
         [HttpGet]
-        public IActionResult GetAllLandscapes()
+        public async Task<IActionResult> GetAllLandscapes()
         {
-            var landscapes = _context.Landscapes
+            var landscapes = await _context.Landscapes
                 .Include(l => l.Category)
+                .Include(l => l.Tags)
                 .Select(l => new LandscapeResponseDto
                 {
                     Id = l.Id,
                     Title = l.Title,
-                    Thumbnail = $"{Request.Scheme}://{Request.Host}/images/thumbnails/{l.FileName}",
-                    Full = $"{Request.Scheme}://{Request.Host}/images/full/{l.FileName}",
-                    FileName = l.FileName,
                     CategoryId = l.CategoryId,
                     CategoryName = l.Category.Name,
-                    Description = l.Description
+                    Description = l.Description,
+                    FileName = l.FileName,
+                    UploadedAt = l.UploadedAt,
+                    Tags = l.Tags.Select(t => t.Name).ToList(),
+                    Thumbnail = l.ThumbnailData,
+                    Full = l.ImageData
                 })
-                .ToList();
+                .ToListAsync();
 
             return Ok(landscapes);
         }
 
-        // GET: api/Landscapes/categories
-        [HttpGet("categories")]
-        public IActionResult GetCategories()
+        // GET: api/Landscapes/{id}/full
+        [HttpGet("{id}/full")]
+        public async Task<IActionResult> GetFullImage(int id)
         {
-            var categories = _context.Categories
-                .Select(c => new { c.Id, c.Name })
-                .ToList();
+            var landscape = await _context.Landscapes.FindAsync(id);
+            if (landscape == null || landscape.ImageData == null)
+                return NotFound();
 
-            return Ok(categories);
+            return File(landscape.ImageData, "image/jpeg");
         }
 
-        // GET: api/Landscapes/by-category/{categoryName}
-        [HttpGet("category/{categoryName}")]
-        public IActionResult GetLandscapesByCategory(string categoryName)
+        // GET: api/Landscapes/{id}/thumb
+        [HttpGet("{id}/thumb")]
+        public async Task<IActionResult> GetThumbnail(int id)
         {
-            if (string.IsNullOrWhiteSpace(categoryName))
-                return BadRequest(new { error = "Category name cannot be empty." });
+            var landscape = await _context.Landscapes.FindAsync(id);
+            if (landscape == null || landscape.ThumbnailData == null)
+                return NotFound();
 
-            var landscapes = _context.Landscapes
-                .Include(l => l.Category)
-                .Where(l => l.Category.Name.ToLower() == categoryName.ToLower())
-                .Select(l => new LandscapeResponseDto
-                {
-                    Id = l.Id,
-                    Title = l.Title,
-                    Thumbnail = $"{Request.Scheme}://{Request.Host}/images/thumbnails/{l.FileName}",
-                    Full = $"{Request.Scheme}://{Request.Host}/images/full/{l.FileName}",
-                    FileName = l.FileName,
-                    CategoryId = l.CategoryId,
-                    CategoryName = l.Category.Name,
-                    Description = l.Description
-                })
-                .ToList();
-
-            // Always return 200 with an array, even if empty
-            return Ok(landscapes);
+            return File(landscape.ThumbnailData, "image/jpeg");
         }
 
+        // POST: api/Landscapes/upload
         [HttpPost("upload")]
         public async Task<IActionResult> UploadLandscape(
             [FromForm] IFormFile file,
             [FromForm] int categoryId,
             [FromForm] string title,
-            [FromForm] string description,
-            [FromForm] string tagNames // comma-separated tags
-        )
+            [FromForm] string? description,
+            [FromForm] string? tagNames)
         {
             if (file == null || file.Length == 0)
                 return BadRequest("No file uploaded.");
 
-            // Prepare folders
-            var uploadsFull = Path.Combine(_env.WebRootPath, "images", "full");
-            var uploadsThumb = Path.Combine(_env.WebRootPath, "images", "thumbnails");
-            Directory.CreateDirectory(uploadsFull);
-            Directory.CreateDirectory(uploadsThumb);
+            byte[] fullBytes;
+            byte[] thumbBytes;
 
-            // Normalize extension to .jpg
-            var fileName = Path.GetFileNameWithoutExtension(file.FileName) + ".jpg";
-            var fullPath = Path.Combine(uploadsFull, fileName);
-            var thumbPath = Path.Combine(uploadsThumb, fileName);
-
-            // Save full image as JPG
             using (var image = Image.Load(file.OpenReadStream()))
             {
-                image.Save(fullPath, new JpegEncoder { Quality = 90 });
-            }
+                using var msFull = new MemoryStream();
+                image.Save(msFull, new JpegEncoder { Quality = 90 });
+                fullBytes = msFull.ToArray();
 
-            // Create thumbnail if missing
-            if (!System.IO.File.Exists(thumbPath))
-            {
-                using var thumbImage = Image.Load(fullPath);
-                thumbImage.Mutate(x => x.Resize(new ResizeOptions
+                image.Mutate(x => x.Resize(new ResizeOptions
                 {
                     Mode = ResizeMode.Max,
                     Size = new Size(400, 0)
                 }));
-                thumbImage.Save(thumbPath, new JpegEncoder { Quality = 70 });
+
+                using var msThumb = new MemoryStream();
+                image.Save(msThumb, new JpegEncoder { Quality = 70 });
+                thumbBytes = msThumb.ToArray();
             }
 
-            // Create Landscape
             var landscape = new Landscape
             {
                 Title = title,
-                FileName = fileName,
                 UploadedAt = DateTime.UtcNow,
                 Description = string.IsNullOrWhiteSpace(description) ? "No description provided." : description,
-                CategoryId = categoryId
+                CategoryId = categoryId,
+                FileName = file.FileName,
+                ImageData = fullBytes,
+                ThumbnailData = thumbBytes
             };
 
-            // Handle multiple tags
+            // Handle tags
             if (!string.IsNullOrWhiteSpace(tagNames))
             {
                 var tagsArray = tagNames.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
@@ -143,32 +122,28 @@ namespace ElliottPhotography.Controllers
                     {
                         existingTag = new Tag { Name = tagName };
                         _context.Tags.Add(existingTag);
-                        await _context.SaveChangesAsync();
                     }
-                    if (!landscape.Tags.Any(t => t.Name.ToLower() == existingTag.Name.ToLower()))
-                        landscape.Tags.Add(existingTag);
+                    landscape.Tags.Add(existingTag);
                 }
             }
 
             _context.Landscapes.Add(landscape);
             await _context.SaveChangesAsync();
 
-            var categoryName = _context.Categories
-                .FirstOrDefault(c => c.Id == landscape.CategoryId)?.Name ?? "Uncategorized";
-
-            // Return the full response DTO
-            return CreatedAtAction(nameof(UploadLandscape), new LandscapeResponseDto
+            var dto = new LandscapeResponseDto
             {
                 Id = landscape.Id,
                 Title = landscape.Title,
-                Thumbnail = $"{Request.Scheme}://{Request.Host}/images/thumbnails/{landscape.FileName}",
-                Full = $"{Request.Scheme}://{Request.Host}/images/full/{landscape.FileName}",
-                FileName = landscape.FileName,
                 CategoryId = landscape.CategoryId,
-                CategoryName = categoryName,
-                Description = landscape.Description
-            });
-        }
+                Description = landscape.Description,
+                FileName = landscape.FileName,
+                UploadedAt = landscape.UploadedAt,
+                Tags = landscape.Tags.Select(t => t.Name).ToList(),
+                Thumbnail = landscape.ThumbnailData,
+                Full = landscape.ImageData
+            };
 
+            return CreatedAtAction(nameof(GetAllLandscapes), new { id = landscape.Id }, dto);
+        }
     }
 }

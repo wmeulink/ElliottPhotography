@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Processing;
-using System.IO;
-using System.Linq;
 
 namespace ElliottPhotography.Controllers
 {
@@ -15,12 +13,10 @@ namespace ElliottPhotography.Controllers
     public class PhotosController : ControllerBase
     {
         private readonly AppDbContext _context;
-        private readonly IWebHostEnvironment _env;
 
-        public PhotosController(AppDbContext context, IWebHostEnvironment env)
+        public PhotosController(AppDbContext context)
         {
             _context = context;
-            _env = env;
         }
 
         // GET: api/photos
@@ -32,74 +28,83 @@ namespace ElliottPhotography.Controllers
                 {
                     Id = photo.Id,
                     Title = photo.Title,
-                    Thumbnail = $"{Request.Scheme}://{Request.Host}/images/thumbs/{photo.FileName}",
-                    Full = $"{Request.Scheme}://{Request.Host}/images/full/{photo.OptimizedFileName ?? photo.FileName}"
+                    Thumbnail = $"{Request.Scheme}://{Request.Host}/photos/{photo.Id}/thumb",
+                    Full = $"{Request.Scheme}://{Request.Host}/photos/{photo.Id}/full"
                 })
                 .ToList();
 
             return Ok(photos);
         }
 
-        // POST: api/photos
-        [HttpPost]
-        public IActionResult AddPhoto([FromBody] PhotoUploadDto dto)
+        // GET: api/photos/{id}/full
+        [HttpGet("{id}/full")]
+        public IActionResult GetFullImage(int id)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            var photo = _context.Photos.Find(id);
+            if (photo == null || photo.FullImage.Length == 0)
+                return NotFound();
 
-            var uploadsFull = Path.Combine(_env.WebRootPath, "images/full");
-            var uploadsThumb = Path.Combine(_env.WebRootPath, "images/thumbs");
+            return File(photo.FullImage, "image/jpeg");
+        }
 
-            Directory.CreateDirectory(uploadsFull);
-            Directory.CreateDirectory(uploadsThumb);
+        // GET: api/photos/{id}/thumb
+        [HttpGet("{id}/thumb")]
+        public IActionResult GetThumbnail(int id)
+        {
+            var photo = _context.Photos.Find(id);
+            if (photo == null || photo.ThumbnailImage.Length == 0)
+                return NotFound();
 
-            var fullPath = Path.Combine(uploadsFull, dto.FileName);
-            var thumbPath = Path.Combine(uploadsThumb, dto.FileName);
-            var optimizedPath = Path.Combine(uploadsFull, $"optimized-{dto.FileName}");
+            return File(photo.ThumbnailImage, "image/jpeg");
+        }
 
-            if (!System.IO.File.Exists(fullPath))
-                return NotFound(new { error = "Full image file not found on server." });
+        // POST: api/photos/upload
+        [HttpPost("upload")]
+        public async Task<IActionResult> UploadPhoto([FromForm] IFormFile file, [FromForm] string title)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest("No file uploaded.");
 
-            // Create thumbnail
-            if (!System.IO.File.Exists(thumbPath))
+            byte[] fullBytes;
+            byte[] thumbBytes;
+
+            using (var image = Image.Load(file.OpenReadStream()))
             {
-                using var thumbImage = Image.Load(fullPath);
-                thumbImage.Mutate(x => x.Resize(new ResizeOptions
+                // Full-size image
+                using var msFull = new MemoryStream();
+                image.Save(msFull, new JpegEncoder { Quality = 90 });
+                fullBytes = msFull.ToArray();
+
+                // Thumbnail
+                image.Mutate(x => x.Resize(new ResizeOptions
                 {
                     Mode = ResizeMode.Max,
                     Size = new Size(400, 0)
                 }));
-                thumbImage.Save(thumbPath, new JpegEncoder { Quality = 70 });
-            }
-
-            // Create optimized full image
-            if (!System.IO.File.Exists(optimizedPath))
-            {
-                using var fullImage = Image.Load(fullPath);
-                fullImage.Mutate(x => x.Resize(new ResizeOptions
-                {
-                    Mode = ResizeMode.Max,
-                    Size = new Size(1920, 0)
-                }));
-                fullImage.Save(optimizedPath, new JpegEncoder { Quality = 85 });
+                using var msThumb = new MemoryStream();
+                image.Save(msThumb, new JpegEncoder { Quality = 70 });
+                thumbBytes = msThumb.ToArray();
             }
 
             var photo = new Photo
             {
-                Title = dto.Title,
-                FileName = dto.FileName,
-                OptimizedFileName = $"optimized-{dto.FileName}"
+                Title = string.IsNullOrWhiteSpace(title) ? "Untitled" : title,
+                OriginalFileName = file.FileName,
+                Description = "No description provided.",
+                UploadedAt = DateTime.UtcNow,
+                FullImage = fullBytes,
+                ThumbnailImage = thumbBytes
             };
 
             _context.Photos.Add(photo);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetPhotos), new { id = photo.Id }, new PhotoResponseDto
             {
                 Id = photo.Id,
                 Title = photo.Title,
-                Thumbnail = $"{Request.Scheme}://{Request.Host}/images/thumbs/{photo.FileName}",
-                Full = $"{Request.Scheme}://{Request.Host}/images/full/{photo.OptimizedFileName}"
+                Thumbnail = $"{Request.Scheme}://{Request.Host}/photos/{photo.Id}/thumb",
+                Full = $"{Request.Scheme}://{Request.Host}/photos/{photo.Id}/full"
             });
         }
     }
