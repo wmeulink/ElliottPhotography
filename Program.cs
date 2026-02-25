@@ -3,7 +3,6 @@ using ElliottPhotography.Models;
 using ElliottPhotography.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
-using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,23 +19,22 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Database
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("DefaultConnection")
+    )
+);
+
+builder.Services.Configure<EmailSettings>(
+    builder.Configuration.GetSection("EmailSettings"));
+
 builder.Services.AddScoped<EmailService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
-// Ensure DB exists and migrations are applied
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    Console.WriteLine($"Connected to DB: {db.Database.GetDbConnection().Database}");
-    db.Database.Migrate();
-}
 
 // Configure HTTP request pipeline
 if (app.Environment.IsDevelopment())
@@ -45,7 +43,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseStaticFiles(); // Serves wwwroot by default
+app.UseStaticFiles(); // wwwroot
 
 app.UseStaticFiles(new StaticFileOptions
 {
@@ -66,6 +64,7 @@ app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();
