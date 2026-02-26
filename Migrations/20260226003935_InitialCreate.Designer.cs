@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ElliottPhotography.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260225041741_InitialCreate")]
+    [Migration("20260226003935_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
