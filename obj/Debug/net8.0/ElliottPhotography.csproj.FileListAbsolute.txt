@@ -303,3 +303,9 @@ C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\obj\Debug\net8
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\obj\Debug\net8.0\ElliottPhotography.pdb
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\obj\Debug\net8.0\ElliottPhotography.genruntimeconfig.cache
 C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\obj\Debug\net8.0\ref\ElliottPhotography.dll
+C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\bin\Debug\net8.0\publish\web.config
+C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\bin\Debug\net8.0\publish\appsettings.Development.json
+C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\bin\Debug\net8.0\publish\appsettings.json
+C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\bin\Debug\net8.0\publish\appsettings.Production.json
+C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\bin\Debug\net8.0\publish\ElliottPhotography.deps.json
+C:\Users\wmeul\source\repos\ElliottPhotography\ElliottPhotography\bin\Debug\net8.0\publish\ElliottPhotography.runtimeconfig.json
