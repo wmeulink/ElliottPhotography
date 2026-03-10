@@ -3,8 +3,8 @@ using ElliottPhotography.Models;
 using ElliottPhotography.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.Formats.Jpeg;
 
 namespace ElliottPhotography.Controllers
 {
@@ -13,10 +13,14 @@ namespace ElliottPhotography.Controllers
     public class PhotosController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly string _imagesRoot;
 
-        public PhotosController(AppDbContext context)
+        public PhotosController(AppDbContext context, IWebHostEnvironment env)
         {
             _context = context;
+            _imagesRoot = Path.Combine(env.WebRootPath, "images", "photos");
+            Directory.CreateDirectory(Path.Combine(_imagesRoot, "full"));
+            Directory.CreateDirectory(Path.Combine(_imagesRoot, "thumbs"));
         }
 
         // GET: api/photos
@@ -28,8 +32,8 @@ namespace ElliottPhotography.Controllers
                 {
                     Id = photo.Id,
                     Title = photo.Title,
-                    Thumbnail = $"{Request.Scheme}://{Request.Host}/photos/{photo.Id}/thumb",
-                    Full = $"{Request.Scheme}://{Request.Host}/photos/{photo.Id}/full"
+                    Thumbnail = photo.ThumbnailPath,
+                    Full = photo.FullPath
                 })
                 .ToList();
 
@@ -41,10 +45,14 @@ namespace ElliottPhotography.Controllers
         public IActionResult GetFullImage(int id)
         {
             var photo = _context.Photos.Find(id);
-            if (photo == null || photo.FullImage.Length == 0)
+            if (photo == null || string.IsNullOrWhiteSpace(photo.FullPath))
                 return NotFound();
 
-            return File(photo.FullImage, "image/jpeg");
+            var fullFile = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", photo.FullPath.TrimStart('/'));
+            if (!System.IO.File.Exists(fullFile))
+                return NotFound();
+
+            return PhysicalFile(fullFile, "image/jpeg");
         }
 
         // GET: api/photos/{id}/thumb
@@ -52,38 +60,40 @@ namespace ElliottPhotography.Controllers
         public IActionResult GetThumbnail(int id)
         {
             var photo = _context.Photos.Find(id);
-            if (photo == null || photo.ThumbnailImage.Length == 0)
+            if (photo == null || string.IsNullOrWhiteSpace(photo.ThumbnailPath))
                 return NotFound();
 
-            return File(photo.ThumbnailImage, "image/jpeg");
+            var thumbFile = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", photo.ThumbnailPath.TrimStart('/'));
+            if (!System.IO.File.Exists(thumbFile))
+                return NotFound();
+
+            return PhysicalFile(thumbFile, "image/jpeg");
         }
 
         // POST: api/photos/upload
         [HttpPost("upload")]
-        public async Task<IActionResult> UploadPhoto([FromForm] IFormFile file, [FromForm] string title)
+        public async Task<IActionResult> UploadPhoto([FromForm] IFormFile file, [FromForm] string? title)
         {
             if (file == null || file.Length == 0)
                 return BadRequest("No file uploaded.");
 
-            byte[] fullBytes;
-            byte[] thumbBytes;
+            // File paths
+            var fullFileName = Path.Combine(_imagesRoot, "full", file.FileName);
+            var thumbFileName = Path.Combine(_imagesRoot, "thumbs", file.FileName);
 
+            // Save full-size image
+            using (var fs = new FileStream(fullFileName, FileMode.Create))
+                await file.CopyToAsync(fs);
+
+            // Save thumbnail
             using (var image = Image.Load(file.OpenReadStream()))
             {
-                // Full-size image
-                using var msFull = new MemoryStream();
-                image.Save(msFull, new JpegEncoder { Quality = 90 });
-                fullBytes = msFull.ToArray();
-
-                // Thumbnail
                 image.Mutate(x => x.Resize(new ResizeOptions
                 {
                     Mode = ResizeMode.Max,
                     Size = new Size(400, 0)
                 }));
-                using var msThumb = new MemoryStream();
-                image.Save(msThumb, new JpegEncoder { Quality = 70 });
-                thumbBytes = msThumb.ToArray();
+                await image.SaveAsJpegAsync(thumbFileName, new JpegEncoder { Quality = 70 });
             }
 
             var photo = new Photo
@@ -92,8 +102,8 @@ namespace ElliottPhotography.Controllers
                 OriginalFileName = file.FileName,
                 Description = "No description provided.",
                 UploadedAt = DateTime.UtcNow,
-                FullImage = fullBytes,
-                ThumbnailImage = thumbBytes
+                FullPath = $"/images/photos/full/{file.FileName}",
+                ThumbnailPath = $"/images/photos/thumbs/{file.FileName}"
             };
 
             _context.Photos.Add(photo);
@@ -103,8 +113,8 @@ namespace ElliottPhotography.Controllers
             {
                 Id = photo.Id,
                 Title = photo.Title,
-                Thumbnail = $"{Request.Scheme}://{Request.Host}/photos/{photo.Id}/thumb",
-                Full = $"{Request.Scheme}://{Request.Host}/photos/{photo.Id}/full"
+                Full = photo.FullPath,
+                Thumbnail = photo.ThumbnailPath
             });
         }
     }

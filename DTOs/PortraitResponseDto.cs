@@ -8,8 +8,8 @@
         public string CategoryName { get; set; }         // Category name
         public string? Description { get; set; }         // Description of the portrait
         public string? FileName { get; set; }            // Original file name
-        public byte[]? Thumbnail { get; set; }           // Thumbnail image bytes
-        public byte[]? Full { get; set; }                // Full image bytes
+        public string? Thumbnail { get; set; }
+        public string? Full { get; set; }
         public List<string>? Tags { get; set; } = new(); // List of tag names
         public DateTime UploadedAt { get; set; }         // Date/time the portrait was uploaded
     }

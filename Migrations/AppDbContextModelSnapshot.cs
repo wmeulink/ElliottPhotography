@@ -71,48 +71,6 @@ namespace ElliottPhotography.Migrations
                     b.ToTable("ContactMessages");
                 });
 
-            modelBuilder.Entity("ElliottPhotography.Models.Landscape", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
-                    b.Property<string>("FileName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
-
-                    b.Property<byte[]>("ImageData")
-                        .IsRequired()
-                        .HasColumnType("bytea");
-
-                    b.Property<byte[]>("ThumbnailData")
-                        .IsRequired()
-                        .HasColumnType("bytea");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
-
-                    b.Property<DateTime>("UploadedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("Landscapes");
-                });
-
             modelBuilder.Entity("ElliottPhotography.Models.Photo", b =>
                 {
                     b.Property<int>("Id")
@@ -124,16 +82,16 @@ namespace ElliottPhotography.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<byte[]>("FullImage")
+                    b.Property<string>("FullPath")
                         .IsRequired()
-                        .HasColumnType("bytea");
+                        .HasColumnType("text");
 
                     b.Property<string>("OriginalFileName")
                         .HasColumnType("text");
 
-                    b.Property<byte[]>("ThumbnailImage")
+                    b.Property<string>("ThumbnailPath")
                         .IsRequired()
-                        .HasColumnType("bytea");
+                        .HasColumnType("text");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -167,13 +125,13 @@ namespace ElliottPhotography.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<byte[]>("ImageData")
+                    b.Property<string>("FullPath")
                         .IsRequired()
-                        .HasColumnType("bytea");
+                        .HasColumnType("text");
 
-                    b.Property<byte[]>("ThumbnailData")
+                    b.Property<string>("ThumbnailPath")
                         .IsRequired()
-                        .HasColumnType("bytea");
+                        .HasColumnType("text");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -239,6 +197,48 @@ namespace ElliottPhotography.Migrations
                     b.ToTable("EmailSettings");
                 });
 
+            modelBuilder.Entity("Landscape", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<string>("FullPath")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ThumbnailPath")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<DateTime>("UploadedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Landscapes");
+                });
+
             modelBuilder.Entity("LandscapeTag", b =>
                 {
                     b.Property<int>("LandscapesId")
@@ -269,17 +269,6 @@ namespace ElliottPhotography.Migrations
                     b.ToTable("PortraitTags", (string)null);
                 });
 
-            modelBuilder.Entity("ElliottPhotography.Models.Landscape", b =>
-                {
-                    b.HasOne("ElliottPhotography.Models.Category", "Category")
-                        .WithMany("Landscapes")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
             modelBuilder.Entity("ElliottPhotography.Models.Portrait", b =>
                 {
                     b.HasOne("ElliottPhotography.Models.Category", "Category")
@@ -291,9 +280,20 @@ namespace ElliottPhotography.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("Landscape", b =>
+                {
+                    b.HasOne("ElliottPhotography.Models.Category", "Category")
+                        .WithMany("Landscapes")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("LandscapeTag", b =>
                 {
-                    b.HasOne("ElliottPhotography.Models.Landscape", null)
+                    b.HasOne("Landscape", null)
                         .WithMany()
                         .HasForeignKey("LandscapesId")
                         .OnDelete(DeleteBehavior.Cascade)

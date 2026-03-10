@@ -2,122 +2,105 @@
 using System.IO;
 using System.Linq;
 using ElliottPhotography.Models;
-using Microsoft.EntityFrameworkCore;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.PixelFormats;
 
 namespace ElliottPhotography.Data
 {
     public static class DbSeeder
     {
-        public static void SeedImages(AppDbContext context, string contentRootPath)
+        public static void MigrateOldImagesToPaths(AppDbContext context, string contentRootPath)
         {
-            Console.WriteLine("Starting database seeding...");
+            Console.WriteLine("Migrating old images to path-based storage...");
 
-            // Ensure database is up-to-date
-            context.Database.Migrate();
+            // Directories for new images
+            var fullDir = Path.Combine(contentRootPath, "wwwroot", "images", "full");
+            var thumbDir = Path.Combine(contentRootPath, "wwwroot", "images", "thumbs");
+            Directory.CreateDirectory(fullDir);
+            Directory.CreateDirectory(thumbDir);
 
-            // Ensure categories exist
-            var landscapeCategory = context.Categories.FirstOrDefault(c => c.Name == "Landscape")
-                                    ?? context.Categories.Add(new Category { Name = "Landscape" }).Entity;
-            context.SaveChanges();
-
-            var portraitCategory = context.Categories.FirstOrDefault(c => c.Name == "Portrait")
-                                   ?? context.Categories.Add(new Category { Name = "Portrait" }).Entity;
-            context.SaveChanges();
-
-            // Seed Landscapes
-            var landscapeDir = Path.Combine(contentRootPath, "wwwroot", "images", "full");
-            if (Directory.Exists(landscapeDir))
+            void ProcessFolder(string oldFolder, bool isPortrait, int categoryId)
             {
-                var files = Directory.GetFiles(landscapeDir);
-                Console.WriteLine($"Found {files.Length} landscape files.");
+                if (!Directory.Exists(oldFolder))
+                    return;
+
+                var files = Directory.GetFiles(oldFolder);
+                Console.WriteLine($"Found {files.Length} files in {oldFolder}");
 
                 foreach (var filePath in files)
                 {
                     var fileName = Path.GetFileName(filePath);
 
-                    if (context.Landscapes.Any(l => l.FileName == fileName))
-                        continue;
+                    // Skip if already in DB
+                    bool exists = isPortrait
+                        ? context.Portraits.Any(p => p.FileName == fileName)
+                        : context.Landscapes.Any(l => l.FileName == fileName);
+                    if (exists) continue;
 
                     try
                     {
-                        using var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-                        var imageBytes = new byte[fs.Length];
-                        fs.Read(imageBytes, 0, imageBytes.Length);
+                        // Copy full image
+                        var fullDest = Path.Combine(fullDir, fileName);
+                        File.Copy(filePath, fullDest, overwrite: true);
 
-                        var thumbnailBytes = GenerateThumbnail(imageBytes);
-
-                        context.Landscapes.Add(new Landscape
+                        // Generate thumbnail
+                        var thumbDest = Path.Combine(thumbDir, fileName);
+                        using var image = Image.Load<Rgba32>(filePath); // strong typing
+                        image.Mutate(x => x.Resize(new ResizeOptions
                         {
-                            Title = Path.GetFileNameWithoutExtension(fileName),
-                            FileName = fileName,
-                            UploadedAt = DateTime.UtcNow,
-                            CategoryId = landscapeCategory.Id,
-                            ImageData = imageBytes,
-                            ThumbnailData = thumbnailBytes
-                        });
+                            Mode = ResizeMode.Max,
+                            Size = new Size(400, 0)
+                        }));
+                        image.SaveAsJpeg(thumbDest, new JpegEncoder { Quality = 70 });
 
-                        // Save each image immediately to reduce memory usage
+                        if (isPortrait)
+                        {
+                            var portrait = new Portrait
+                            {
+                                Title = Path.GetFileNameWithoutExtension(fileName),
+                                FileName = fileName,
+                                UploadedAt = DateTime.UtcNow,
+                                CategoryId = categoryId,
+                                FullPath = $"/images/full/{fileName}",
+                                ThumbnailPath = $"/images/thumbs/{fileName}"
+                            };
+                            context.Portraits.Add(portrait);
+                        }
+                        else
+                        {
+                            var landscape = new Landscape
+                            {
+                                Title = Path.GetFileNameWithoutExtension(fileName),
+                                FileName = fileName,
+                                UploadedAt = DateTime.UtcNow,
+                                CategoryId = categoryId,
+                                FullPath = $"/images/full/{fileName}",
+                                ThumbnailPath = $"/images/thumbs/{fileName}"
+                            };
+                            context.Landscapes.Add(landscape);
+                        }
+
                         context.SaveChanges();
-
-                        Console.WriteLine($"Added landscape: {fileName}");
+                        Console.WriteLine($"Added {(isPortrait ? "portrait" : "landscape")}: {fileName}");
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"Failed to add {fileName}: {ex.Message}");
+                        Console.WriteLine($"Failed to process {fileName}: {ex.Message}");
                     }
                 }
             }
 
-            // Seed Portraits
-            var portraitDir = Path.Combine(contentRootPath, "wwwroot", "portraits", "full");
-            if (Directory.Exists(portraitDir))
-            {
-                var files = Directory.GetFiles(portraitDir);
-                Console.WriteLine($"Found {files.Length} portrait files.");
+            // Get category IDs
+            var landscapesCategory = context.Categories.FirstOrDefault(c => c.Name == "Landscape")?.Id ?? 0;
+            var portraitsCategory = context.Categories.FirstOrDefault(c => c.Name == "Portrait")?.Id ?? 0;
 
-                foreach (var filePath in files)
-                {
-                    var fileName = Path.GetFileName(filePath);
+            // Migrate folders
+            ProcessFolder(Path.Combine(contentRootPath, "OldImages", "Landscapes"), false, landscapesCategory);
+            ProcessFolder(Path.Combine(contentRootPath, "OldImages", "Portraits"), true, portraitsCategory);
 
-                    if (context.Portraits.Any(p => p.FileName == fileName))
-                        continue;
-
-                    try
-                    {
-                        using var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-                        var imageBytes = new byte[fs.Length];
-                        fs.Read(imageBytes, 0, imageBytes.Length);
-
-                        var thumbnailBytes = GenerateThumbnail(imageBytes);
-
-                        context.Portraits.Add(new Portrait
-                        {
-                            Title = Path.GetFileNameWithoutExtension(fileName),
-                            FileName = fileName,
-                            UploadedAt = DateTime.UtcNow,
-                            CategoryId = portraitCategory.Id,
-                            ImageData = imageBytes,
-                            ThumbnailData = thumbnailBytes
-                        });
-
-                        context.SaveChanges();
-
-                        Console.WriteLine($"Added portrait: {fileName}");
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Failed to add {fileName}: {ex.Message}");
-                    }
-                }
-            }
-
-            Console.WriteLine("Database seeding complete!");
-        }
-
-        private static byte[] GenerateThumbnail(byte[] imageBytes)
-        {
-            // For now just returning the original bytes.
-            return imageBytes;
+            Console.WriteLine("Migration complete!");
         }
     }
 }

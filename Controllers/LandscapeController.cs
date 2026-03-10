@@ -14,10 +14,14 @@ namespace ElliottPhotography.Controllers
     public class LandscapesController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly string _imagesRoot;
 
-        public LandscapesController(AppDbContext context)
+        public LandscapesController(AppDbContext context, IWebHostEnvironment env)
         {
             _context = context;
+            _imagesRoot = Path.Combine(env.WebRootPath, "images", "landscapes");
+            Directory.CreateDirectory(Path.Combine(_imagesRoot, "full"));
+            Directory.CreateDirectory(Path.Combine(_imagesRoot, "thumbs"));
         }
 
         // GET: api/Landscapes
@@ -32,39 +36,47 @@ namespace ElliottPhotography.Controllers
                     Id = l.Id,
                     Title = l.Title,
                     CategoryId = l.CategoryId,
-                    CategoryName = l.Category.Name,
+                    CategoryName = l.Category != null ? l.Category.Name : "Uncategorized",
                     Description = l.Description,
                     FileName = l.FileName,
                     UploadedAt = l.UploadedAt,
                     Tags = l.Tags.Select(t => t.Name).ToList(),
-                    Thumbnail = l.ThumbnailData,
-                    Full = l.ImageData
+                    Thumbnail = l.ThumbnailPath,
+                    Full = l.FullPath
                 })
                 .ToListAsync();
 
             return Ok(landscapes);
         }
 
-        // GET: api/Landscapes/{id}/full
-        [HttpGet("{id}/full")]
-        public async Task<IActionResult> GetFullImage(int id)
+        // GET: api/Landscapes/category/{category}
+        [HttpGet("category/{category}")]
+        public async Task<IActionResult> GetByCategory(string category)
         {
-            var landscape = await _context.Landscapes.FindAsync(id);
-            if (landscape == null || landscape.ImageData == null)
-                return NotFound();
+            if (string.IsNullOrWhiteSpace(category))
+                return BadRequest("Category name is required.");
 
-            return File(landscape.ImageData, "image/jpeg");
-        }
+            var landscapes = await _context.Landscapes
+                .Include(l => l.Category)
+                .Include(l => l.Tags)
+                .Where(l => l.Category != null &&
+                            l.Category.Name.Equals(category, StringComparison.OrdinalIgnoreCase))
+                .Select(l => new LandscapeResponseDto
+                {
+                    Id = l.Id,
+                    Title = l.Title,
+                    CategoryId = l.CategoryId,
+                    CategoryName = l.Category.Name,
+                    Description = l.Description,
+                    FileName = l.FileName,
+                    UploadedAt = l.UploadedAt,
+                    Tags = l.Tags.Select(t => t.Name).ToList(),
+                    Thumbnail = l.ThumbnailPath,
+                    Full = l.FullPath
+                })
+                .ToListAsync();
 
-        // GET: api/Landscapes/{id}/thumb
-        [HttpGet("{id}/thumb")]
-        public async Task<IActionResult> GetThumbnail(int id)
-        {
-            var landscape = await _context.Landscapes.FindAsync(id);
-            if (landscape == null || landscape.ThumbnailData == null)
-                return NotFound();
-
-            return File(landscape.ThumbnailData, "image/jpeg");
+            return Ok(landscapes);
         }
 
         // POST: api/Landscapes/upload
@@ -79,24 +91,23 @@ namespace ElliottPhotography.Controllers
             if (file == null || file.Length == 0)
                 return BadRequest("No file uploaded.");
 
-            byte[] fullBytes;
-            byte[] thumbBytes;
+            // File paths
+            var fullFileName = Path.Combine(_imagesRoot, "full", file.FileName);
+            var thumbFileName = Path.Combine(_imagesRoot, "thumbs", file.FileName);
 
+            // Save full-size image
+            using (var fs = new FileStream(fullFileName, FileMode.Create))
+                await file.CopyToAsync(fs);
+
+            // Save thumbnail
             using (var image = Image.Load(file.OpenReadStream()))
             {
-                using var msFull = new MemoryStream();
-                image.Save(msFull, new JpegEncoder { Quality = 90 });
-                fullBytes = msFull.ToArray();
-
                 image.Mutate(x => x.Resize(new ResizeOptions
                 {
                     Mode = ResizeMode.Max,
                     Size = new Size(400, 0)
                 }));
-
-                using var msThumb = new MemoryStream();
-                image.Save(msThumb, new JpegEncoder { Quality = 70 });
-                thumbBytes = msThumb.ToArray();
+                await image.SaveAsJpegAsync(thumbFileName, new JpegEncoder { Quality = 70 });
             }
 
             var landscape = new Landscape
@@ -106,15 +117,14 @@ namespace ElliottPhotography.Controllers
                 Description = string.IsNullOrWhiteSpace(description) ? "No description provided." : description,
                 CategoryId = categoryId,
                 FileName = file.FileName,
-                ImageData = fullBytes,
-                ThumbnailData = thumbBytes
+                FullPath = $"/images/landscapes/full/{file.FileName}",
+                ThumbnailPath = $"/images/landscapes/thumbs/{file.FileName}"
             };
 
             // Handle tags
             if (!string.IsNullOrWhiteSpace(tagNames))
             {
                 var tagsArray = tagNames.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-
                 foreach (var tagName in tagsArray)
                 {
                     var existingTag = await _context.Tags.FirstOrDefaultAsync(t => t.Name.ToLower() == tagName.ToLower());
@@ -122,8 +132,10 @@ namespace ElliottPhotography.Controllers
                     {
                         existingTag = new Tag { Name = tagName };
                         _context.Tags.Add(existingTag);
+                        await _context.SaveChangesAsync();
                     }
-                    landscape.Tags.Add(existingTag);
+                    if (!landscape.Tags.Any(t => t.Name.ToLower() == existingTag.Name.ToLower()))
+                        landscape.Tags.Add(existingTag);
                 }
             }
 
@@ -139,8 +151,8 @@ namespace ElliottPhotography.Controllers
                 FileName = landscape.FileName,
                 UploadedAt = landscape.UploadedAt,
                 Tags = landscape.Tags.Select(t => t.Name).ToList(),
-                Thumbnail = landscape.ThumbnailData,
-                Full = landscape.ImageData
+                Thumbnail = landscape.ThumbnailPath,
+                Full = landscape.FullPath
             };
 
             return CreatedAtAction(nameof(GetAllLandscapes), new { id = landscape.Id }, dto);

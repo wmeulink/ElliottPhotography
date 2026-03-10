@@ -12,8 +12,8 @@
 
         public DateTime UploadedAt { get; set; } = DateTime.UtcNow;
 
-        public byte[] FullImage { get; set; } = Array.Empty<byte>();
+        public string FullPath { get; set; } = string.Empty;
 
-        public byte[] ThumbnailImage { get; set; } = Array.Empty<byte>();
+        public string ThumbnailPath { get; set; } = string.Empty;
     }
 }

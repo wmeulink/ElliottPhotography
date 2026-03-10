@@ -1,33 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using ElliottPhotography.Models;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-namespace ElliottPhotography.Models
+public class Landscape
 {
-    public class Landscape
-    {
-        [Key]
-        public int Id { get; set; }
+    [Key]
+    public int Id { get; set; }
 
-        [Required]
-        public string Title { get; set; } = string.Empty;
+    [Required]
+    public string Title { get; set; } = string.Empty;
 
-        public string? Description { get; set; }
+    public string? Description { get; set; }
 
-        public DateTime UploadedAt { get; set; } = DateTime.UtcNow;
+    public DateTime UploadedAt { get; set; } = DateTime.UtcNow;
 
-        // rename to match Portrait
-        public byte[] ImageData { get; set; } = Array.Empty<byte>();
-        public byte[] ThumbnailData { get; set; } = Array.Empty<byte>();
+    // file info
+    public string? FileName { get; set; }
 
-        public string? FileName { get; set; }
+    public string FullPath { get; set; } = string.Empty;
+    public string ThumbnailPath { get; set; } = string.Empty;
 
-        public int CategoryId { get; set; }
+    public int CategoryId { get; set; }
 
-        [ForeignKey(nameof(CategoryId))]
-        public Category? Category { get; set; }
+    [ForeignKey(nameof(CategoryId))]
+    public Category? Category { get; set; }
 
-        public ICollection<Tag> Tags { get; set; } = new List<Tag>();
-    }
+    public ICollection<Tag> Tags { get; set; } = new List<Tag>();
 }

@@ -2,7 +2,6 @@ using ElliottPhotography.Data;
 using ElliottPhotography.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
-using DbSeeder = ElliottPhotography.Data.DbSeeder;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,11 +26,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
-// Email settings
+// Email service
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddScoped<EmailService>();
 
-// Swagger / API explorer
+// Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -48,24 +47,20 @@ if (app.Environment.IsDevelopment() || enableSwaggerInProd)
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-// Static files
-app.UseStaticFiles(); // wwwroot
-
-// Thumbnails
+// Serve static files from wwwroot/images
+var imagesRoot = Path.Combine(app.Environment.ContentRootPath, "wwwroot", "images");
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new PhysicalFileProvider(
-        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "thumbs")),
-    RequestPath = "/images/thumbnails"
+    FileProvider = new PhysicalFileProvider(imagesRoot),
+    RequestPath = "/images"
 });
 
-// Full images
+// Serve static files from wwwroot/portraits
+var portraitsRoot = Path.Combine(app.Environment.ContentRootPath, "wwwroot", "portraits");
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new PhysicalFileProvider(
-        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "full")),
-    RequestPath = "/images/full"
+    FileProvider = new PhysicalFileProvider(portraitsRoot),
+    RequestPath = "/portraits"
 });
 
 app.UseHttpsRedirection();
@@ -73,35 +68,4 @@ app.UseCors("AllowAll");
 app.UseAuthorization();
 app.MapControllers();
 
-// ------------------ DATABASE MIGRATION & SEEDING ------------------
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
-    try
-    {
-        Console.WriteLine("Applying pending migrations...");
-        db.Database.Migrate();
-        Console.WriteLine("Migrations applied successfully.");
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Migration failed: {ex}");
-        throw;
-    }
-
-    // Seed images and categories
-    try
-    {
-        Console.WriteLine("Seeding database...");
-        DbSeeder.SeedImages(db, app.Environment.ContentRootPath);
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Seeding failed: {ex}");
-        throw;
-    }
-}
-
-// ------------------ RUN ------------------
 app.Run();

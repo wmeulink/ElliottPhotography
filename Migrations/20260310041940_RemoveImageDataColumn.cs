@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ElliottPhotography.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class RemoveImageDataColumn : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -69,8 +69,8 @@ namespace ElliottPhotography.Migrations
                     Description = table.Column<string>(type: "text", nullable: true),
                     OriginalFileName = table.Column<string>(type: "text", nullable: true),
                     UploadedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    FullImage = table.Column<byte[]>(type: "bytea", nullable: false),
-                    ThumbnailImage = table.Column<byte[]>(type: "bytea", nullable: false)
+                    FullPath = table.Column<string>(type: "text", nullable: false),
+                    ThumbnailPath = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -99,9 +99,9 @@ namespace ElliottPhotography.Migrations
                     Title = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
                     UploadedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ImageData = table.Column<byte[]>(type: "bytea", nullable: false),
-                    ThumbnailData = table.Column<byte[]>(type: "bytea", nullable: false),
                     FileName = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    FullPath = table.Column<string>(type: "text", nullable: false),
+                    ThumbnailPath = table.Column<string>(type: "text", nullable: false),
                     CategoryId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -126,8 +126,8 @@ namespace ElliottPhotography.Migrations
                     Description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
                     UploadedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CategoryId = table.Column<int>(type: "integer", nullable: false),
-                    ImageData = table.Column<byte[]>(type: "bytea", nullable: false),
-                    ThumbnailData = table.Column<byte[]>(type: "bytea", nullable: false)
+                    FullPath = table.Column<string>(type: "text", nullable: false),
+                    ThumbnailPath = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
