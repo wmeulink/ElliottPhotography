@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ElliottPhotography.Data;
+using ElliottPhotography.Models;
+using ElliottPhotography.DTOs;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Formats.Jpeg;
-using ElliottPhotography.DTOs;
-using ElliottPhotography.Models;
-using Microsoft.EntityFrameworkCore;
-using ElliottPhotography.Data;
 using System.IO;
 
 namespace ElliottPhotography.Controllers
@@ -20,7 +20,6 @@ namespace ElliottPhotography.Controllers
         public PortraitsController(AppDbContext context, IWebHostEnvironment env)
         {
             _context = context;
-            // Root path for saving images in wwwroot/images/portraits
             _imagesRoot = Path.Combine(env.WebRootPath, "images", "portraits");
             Directory.CreateDirectory(Path.Combine(_imagesRoot, "full"));
             Directory.CreateDirectory(Path.Combine(_imagesRoot, "thumbs"));
@@ -37,13 +36,13 @@ namespace ElliottPhotography.Controllers
                 {
                     Id = p.Id,
                     Title = p.Title,
-                    CategoryId = p.CategoryId,
-                    CategoryName = p.Category != null ? p.Category.Name : "Uncategorized",
                     Description = p.Description,
                     FileName = p.FileName,
+                    CategoryId = p.CategoryId,
+                    CategoryName = p.Category != null ? p.Category.Name : "Uncategorized",
                     UploadedAt = p.UploadedAt,
-                    Thumbnail = p.ThumbnailPath,
                     Full = p.FullPath,
+                    Thumbnail = p.ThumbnailPath,
                     Tags = p.Tags.Select(t => t.Name).ToList()
                 })
                 .ToListAsync();
@@ -67,13 +66,13 @@ namespace ElliottPhotography.Controllers
                 {
                     Id = p.Id,
                     Title = p.Title,
-                    CategoryId = p.CategoryId,
-                    CategoryName = p.Category.Name,
                     Description = p.Description,
                     FileName = p.FileName,
+                    CategoryId = p.CategoryId,
+                    CategoryName = p.Category.Name,
                     UploadedAt = p.UploadedAt,
-                    Thumbnail = p.ThumbnailPath,
                     Full = p.FullPath,
+                    Thumbnail = p.ThumbnailPath,
                     Tags = p.Tags.Select(t => t.Name).ToList()
                 })
                 .ToListAsync();
@@ -87,21 +86,18 @@ namespace ElliottPhotography.Controllers
             [FromForm] IFormFile file,
             [FromForm] int categoryId,
             [FromForm] string title,
-            [FromForm] string description,
-            [FromForm] string tagNames) // comma-separated tags
+            [FromForm] string? description,
+            [FromForm] string? tagNames)
         {
             if (file == null || file.Length == 0)
                 return BadRequest("No file uploaded.");
 
-            // File paths
             var fullFileName = Path.Combine(_imagesRoot, "full", file.FileName);
             var thumbFileName = Path.Combine(_imagesRoot, "thumbs", file.FileName);
 
-            // Save full-size file
             using (var fs = new FileStream(fullFileName, FileMode.Create))
                 await file.CopyToAsync(fs);
 
-            // Save thumbnail
             using (var image = Image.Load(file.OpenReadStream()))
             {
                 image.Mutate(x => x.Resize(new ResizeOptions
@@ -114,16 +110,15 @@ namespace ElliottPhotography.Controllers
 
             var portrait = new Portrait
             {
-                Title = title,
-                UploadedAt = DateTime.UtcNow,
+                Title = string.IsNullOrWhiteSpace(title) ? "Untitled" : title,
                 Description = string.IsNullOrWhiteSpace(description) ? "No description provided." : description,
                 CategoryId = categoryId,
                 FileName = file.FileName,
+                UploadedAt = DateTime.UtcNow,
                 FullPath = $"/images/portraits/full/{file.FileName}",
                 ThumbnailPath = $"/images/portraits/thumbs/{file.FileName}"
             };
 
-            // Handle tags
             if (!string.IsNullOrWhiteSpace(tagNames))
             {
                 var tagsArray = tagNames.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
@@ -144,11 +139,21 @@ namespace ElliottPhotography.Controllers
             _context.Portraits.Add(portrait);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetAllPortraits), new { id = portrait.Id }, new
+            var dto = new PortraitResponseDto
             {
-                portrait.Id,
-                portrait.Title
-            });
+                Id = portrait.Id,
+                Title = portrait.Title,
+                Description = portrait.Description,
+                FileName = portrait.FileName,
+                CategoryId = portrait.CategoryId,
+                CategoryName = portrait.Category?.Name ?? "Uncategorized",
+                UploadedAt = portrait.UploadedAt,
+                Full = portrait.FullPath,
+                Thumbnail = portrait.ThumbnailPath,
+                Tags = portrait.Tags.Select(t => t.Name).ToList()
+            };
+
+            return CreatedAtAction(nameof(GetAllPortraits), new { id = portrait.Id }, dto);
         }
     }
 }

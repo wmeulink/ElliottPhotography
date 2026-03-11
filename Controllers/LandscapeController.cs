@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Formats.Jpeg;
+using System.IO;
 
 namespace ElliottPhotography.Controllers
 {
@@ -35,14 +36,14 @@ namespace ElliottPhotography.Controllers
                 {
                     Id = l.Id,
                     Title = l.Title,
-                    CategoryId = l.CategoryId,
-                    CategoryName = l.Category != null ? l.Category.Name : "Uncategorized",
                     Description = l.Description,
                     FileName = l.FileName,
+                    CategoryId = l.CategoryId,
+                    CategoryName = l.Category != null ? l.Category.Name : "Uncategorized",
                     UploadedAt = l.UploadedAt,
-                    Tags = l.Tags.Select(t => t.Name).ToList(),
+                    Full = l.FullPath,
                     Thumbnail = l.ThumbnailPath,
-                    Full = l.FullPath
+                    Tags = l.Tags.Select(t => t.Name).ToList()
                 })
                 .ToListAsync();
 
@@ -65,14 +66,14 @@ namespace ElliottPhotography.Controllers
                 {
                     Id = l.Id,
                     Title = l.Title,
-                    CategoryId = l.CategoryId,
-                    CategoryName = l.Category.Name,
                     Description = l.Description,
                     FileName = l.FileName,
+                    CategoryId = l.CategoryId,
+                    CategoryName = l.Category.Name,
                     UploadedAt = l.UploadedAt,
-                    Tags = l.Tags.Select(t => t.Name).ToList(),
+                    Full = l.FullPath,
                     Thumbnail = l.ThumbnailPath,
-                    Full = l.FullPath
+                    Tags = l.Tags.Select(t => t.Name).ToList()
                 })
                 .ToListAsync();
 
@@ -91,15 +92,12 @@ namespace ElliottPhotography.Controllers
             if (file == null || file.Length == 0)
                 return BadRequest("No file uploaded.");
 
-            // File paths
             var fullFileName = Path.Combine(_imagesRoot, "full", file.FileName);
             var thumbFileName = Path.Combine(_imagesRoot, "thumbs", file.FileName);
 
-            // Save full-size image
             using (var fs = new FileStream(fullFileName, FileMode.Create))
                 await file.CopyToAsync(fs);
 
-            // Save thumbnail
             using (var image = Image.Load(file.OpenReadStream()))
             {
                 image.Mutate(x => x.Resize(new ResizeOptions
@@ -113,15 +111,14 @@ namespace ElliottPhotography.Controllers
             var landscape = new Landscape
             {
                 Title = title,
-                UploadedAt = DateTime.UtcNow,
                 Description = string.IsNullOrWhiteSpace(description) ? "No description provided." : description,
                 CategoryId = categoryId,
                 FileName = file.FileName,
+                UploadedAt = DateTime.UtcNow,
                 FullPath = $"/images/landscapes/full/{file.FileName}",
                 ThumbnailPath = $"/images/landscapes/thumbs/{file.FileName}"
             };
 
-            // Handle tags
             if (!string.IsNullOrWhiteSpace(tagNames))
             {
                 var tagsArray = tagNames.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
@@ -146,13 +143,14 @@ namespace ElliottPhotography.Controllers
             {
                 Id = landscape.Id,
                 Title = landscape.Title,
-                CategoryId = landscape.CategoryId,
                 Description = landscape.Description,
                 FileName = landscape.FileName,
+                CategoryId = landscape.CategoryId,
+                CategoryName = landscape.Category?.Name ?? "Uncategorized",
                 UploadedAt = landscape.UploadedAt,
-                Tags = landscape.Tags.Select(t => t.Name).ToList(),
+                Full = landscape.FullPath,
                 Thumbnail = landscape.ThumbnailPath,
-                Full = landscape.FullPath
+                Tags = landscape.Tags.Select(t => t.Name).ToList()
             };
 
             return CreatedAtAction(nameof(GetAllLandscapes), new { id = landscape.Id }, dto);

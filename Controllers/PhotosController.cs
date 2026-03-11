@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Formats.Jpeg;
+using System.IO;
 
 namespace ElliottPhotography.Controllers
 {
@@ -32,8 +33,11 @@ namespace ElliottPhotography.Controllers
                 {
                     Id = photo.Id,
                     Title = photo.Title,
-                    Thumbnail = photo.ThumbnailPath,
-                    Full = photo.FullPath
+                    Description = photo.Description ?? "No description provided.",
+                    OriginalFileName = photo.OriginalFileName,
+                    UploadedAt = photo.UploadedAt,
+                    Full = photo.FullPath,
+                    Thumbnail = photo.ThumbnailPath
                 })
                 .ToList();
 
@@ -77,7 +81,6 @@ namespace ElliottPhotography.Controllers
             if (file == null || file.Length == 0)
                 return BadRequest("No file uploaded.");
 
-            // File paths
             var fullFileName = Path.Combine(_imagesRoot, "full", file.FileName);
             var thumbFileName = Path.Combine(_imagesRoot, "thumbs", file.FileName);
 
@@ -113,6 +116,9 @@ namespace ElliottPhotography.Controllers
             {
                 Id = photo.Id,
                 Title = photo.Title,
+                Description = photo.Description,
+                OriginalFileName = photo.OriginalFileName,
+                UploadedAt = photo.UploadedAt,
                 Full = photo.FullPath,
                 Thumbnail = photo.ThumbnailPath
             });
