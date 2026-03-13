@@ -50,6 +50,35 @@ namespace ElliottPhotography.Controllers
             return Ok(portraits);
         }
 
+        // GET: api/Portraits/{id}
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetPortraitById(int id)
+        {
+            var portrait = await _context.Portraits
+                .Include(p => p.Category)
+                .Include(p => p.Tags)
+                .Where(p => p.Id == id)
+                .Select(p => new PortraitResponseDto
+                {
+                    Id = p.Id,
+                    Title = p.Title,
+                    Description = p.Description,
+                    FileName = p.FileName,
+                    CategoryId = p.CategoryId,
+                    CategoryName = p.Category != null ? p.Category.Name : "Uncategorized",
+                    UploadedAt = p.UploadedAt,
+                    Full = p.FullPath,
+                    Thumbnail = p.ThumbnailPath,
+                    Tags = p.Tags.Select(t => t.Name).ToList()
+                })
+                .FirstOrDefaultAsync();
+
+            if (portrait == null)
+                return NotFound($"No portrait found with ID {id}");
+
+            return Ok(portrait);
+        }
+
         // GET: api/Portraits/category/{category}
         [HttpGet("category/{category}")]
         public async Task<IActionResult> GetByCategory(string category)
@@ -153,7 +182,7 @@ namespace ElliottPhotography.Controllers
                 Tags = portrait.Tags.Select(t => t.Name).ToList()
             };
 
-            return CreatedAtAction(nameof(GetAllPortraits), new { id = portrait.Id }, dto);
+            return CreatedAtAction(nameof(GetPortraitById), new { id = portrait.Id }, dto);
         }
     }
 }

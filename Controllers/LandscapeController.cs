@@ -50,6 +50,35 @@ namespace ElliottPhotography.Controllers
             return Ok(landscapes);
         }
 
+        // GET: api/Landscapes/{id}
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetLandscapeById(int id)
+        {
+            var landscape = await _context.Landscapes
+                .Include(l => l.Category)
+                .Include(l => l.Tags)
+                .Where(l => l.Id == id)
+                .Select(l => new LandscapeResponseDto
+                {
+                    Id = l.Id,
+                    Title = l.Title,
+                    Description = l.Description,
+                    FileName = l.FileName,
+                    CategoryId = l.CategoryId,
+                    CategoryName = l.Category != null ? l.Category.Name : "Uncategorized",
+                    UploadedAt = l.UploadedAt,
+                    Full = l.FullPath,
+                    Thumbnail = l.ThumbnailPath,
+                    Tags = l.Tags.Select(t => t.Name).ToList()
+                })
+                .FirstOrDefaultAsync();
+
+            if (landscape == null)
+                return NotFound($"No landscape found with ID {id}");
+
+            return Ok(landscape);
+        }
+
         // GET: api/Landscapes/category/{category}
         [HttpGet("category/{category}")]
         public async Task<IActionResult> GetByCategory(string category)
@@ -110,7 +139,7 @@ namespace ElliottPhotography.Controllers
 
             var landscape = new Landscape
             {
-                Title = title,
+                Title = string.IsNullOrWhiteSpace(title) ? "Untitled" : title,
                 Description = string.IsNullOrWhiteSpace(description) ? "No description provided." : description,
                 CategoryId = categoryId,
                 FileName = file.FileName,
@@ -153,7 +182,7 @@ namespace ElliottPhotography.Controllers
                 Tags = landscape.Tags.Select(t => t.Name).ToList()
             };
 
-            return CreatedAtAction(nameof(GetAllLandscapes), new { id = landscape.Id }, dto);
+            return CreatedAtAction(nameof(GetLandscapeById), new { id = landscape.Id }, dto);
         }
     }
 }
