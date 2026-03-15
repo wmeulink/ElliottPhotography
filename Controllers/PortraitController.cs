@@ -79,15 +79,19 @@ namespace ElliottPhotography.Controllers
             return Ok(portrait);
         }
 
-        // GET: api/Portraits/{id}/thumb
-        [HttpGet("{id}/thumb")]
-        public async Task<IActionResult> GetThumbnail(int id)
+        // GET: api/Portraits/{id}/full
+        [HttpGet("{id}/full")]
+        public async Task<IActionResult> GetFullImage(int id)
         {
             var portrait = await _context.Portraits.FindAsync(id);
-            if (portrait == null || string.IsNullOrEmpty(portrait.ThumbnailPath))
+            if (portrait == null || string.IsNullOrEmpty(portrait.FullPath))
                 return NotFound();
 
-            var filePath = Path.Combine(_imagesRoot, "thumbs", Path.GetFileName(portrait.ThumbnailPath));
+            // Map DB path like "/images/full/IMG_0540.JPG" to the filesystem
+            var relativePath = portrait.FullPath.TrimStart('/');
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot",
+                                        relativePath.Replace("/", Path.DirectorySeparatorChar.ToString()));
+
             if (!System.IO.File.Exists(filePath))
                 return NotFound();
 
@@ -101,15 +105,18 @@ namespace ElliottPhotography.Controllers
             return PhysicalFile(filePath, contentType);
         }
 
-        // GET: api/Portraits/{id}/full
-        [HttpGet("{id}/full")]
-        public async Task<IActionResult> GetFullImage(int id)
+        // GET: api/Portraits/{id}/thumb
+        [HttpGet("{id}/thumb")]
+        public async Task<IActionResult> GetThumbnail(int id)
         {
             var portrait = await _context.Portraits.FindAsync(id);
-            if (portrait == null || string.IsNullOrEmpty(portrait.FullPath))
+            if (portrait == null || string.IsNullOrEmpty(portrait.ThumbnailPath))
                 return NotFound();
 
-            var filePath = Path.Combine(_imagesRoot, "full", Path.GetFileName(portrait.FullPath));
+            var relativePath = portrait.ThumbnailPath.TrimStart('/');
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot",
+                                        relativePath.Replace("/", Path.DirectorySeparatorChar.ToString()));
+
             if (!System.IO.File.Exists(filePath))
                 return NotFound();
 
