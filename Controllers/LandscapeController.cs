@@ -50,6 +50,35 @@ namespace ElliottPhotography.Controllers
             return Ok(landscapes);
         }
 
+        // GET: api/Landscapes/{id}
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetLandscapeById(int id)
+        {
+            var landscape = await _context.Landscapes
+                .Include(l => l.Category)
+                .Include(l => l.Tags)
+                .Where(l => l.Id == id)
+                .Select(l => new LandscapeResponseDto
+                {
+                    Id = l.Id,
+                    Title = l.Title,
+                    Description = l.Description,
+                    FileName = l.FileName,
+                    CategoryId = l.CategoryId,
+                    CategoryName = l.Category != null ? l.Category.Name : "Uncategorized",
+                    UploadedAt = l.UploadedAt,
+                    Full = l.FullPath,
+                    Thumbnail = l.ThumbnailPath,
+                    Tags = l.Tags.Select(t => t.Name).ToList()
+                })
+                .FirstOrDefaultAsync();
+
+            if (landscape == null)
+                return NotFound($"No landscape found with ID {id}");
+
+            return Ok(landscape);
+        }
+
         // GET: api/Landscapes/{id}/thumb
         [HttpGet("{id}/thumb")]
         public async Task<IActionResult> GetThumbnail(int id)
@@ -93,6 +122,7 @@ namespace ElliottPhotography.Controllers
 
             return PhysicalFile(filePath, contentType);
         }
+
         // GET: api/Landscapes/category/{category}
         [HttpGet("category/{category}")]
         public async Task<IActionResult> GetByCategory(string category)
