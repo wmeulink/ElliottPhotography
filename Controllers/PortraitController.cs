@@ -50,33 +50,52 @@ namespace ElliottPhotography.Controllers
             return Ok(portraits);
         }
 
-        // GET: api/Portraits/{id}
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetPortraitById(int id)
+        // GET: api/Portraits/{id}/thumb
+        [HttpGet("{id}/thumb")]
+        public async Task<IActionResult> GetThumbnail(int id)
         {
-            var portrait = await _context.Portraits
-                .Include(p => p.Category)
-                .Include(p => p.Tags)
-                .Where(p => p.Id == id)
-                .Select(p => new PortraitResponseDto
-                {
-                    Id = p.Id,
-                    Title = p.Title,
-                    Description = p.Description,
-                    FileName = p.FileName,
-                    CategoryId = p.CategoryId,
-                    CategoryName = p.Category != null ? p.Category.Name : "Uncategorized",
-                    UploadedAt = p.UploadedAt,
-                    Full = p.FullPath,
-                    Thumbnail = p.ThumbnailPath,
-                    Tags = p.Tags.Select(t => t.Name).ToList()
-                })
-                .FirstOrDefaultAsync();
+            var portrait = await _context.Portraits.FindAsync(id);
+            if (portrait == null || string.IsNullOrEmpty(portrait.ThumbnailPath))
+                return NotFound();
 
-            if (portrait == null)
-                return NotFound($"No portrait found with ID {id}");
+            // Map the ThumbnailPath (like /images/portraits/thumbs/IMG_1494.jpeg) to the filesystem
+            var filePath = Path.Combine(_imagesRoot, "thumbs", Path.GetFileName(portrait.ThumbnailPath));
+            if (!System.IO.File.Exists(filePath))
+                return NotFound();
 
-            return Ok(portrait);
+            // Detect MIME type based on file extension
+            var contentType = Path.GetExtension(filePath).ToLower() switch
+            {
+                ".jpg" or ".jpeg" => "image/jpeg",
+                ".png" => "image/png",
+                _ => "application/octet-stream"
+            };
+
+            return PhysicalFile(filePath, contentType);
+        }
+
+        // GET: api/Portraits/{id}/full
+        [HttpGet("{id}/full")]
+        public async Task<IActionResult> GetFullImage(int id)
+        {
+            var portrait = await _context.Portraits.FindAsync(id);
+            if (portrait == null || string.IsNullOrEmpty(portrait.FullPath))
+                return NotFound();
+
+            // Map the FullPath (like /images/portraits/full/IMG_1494.jpeg) to the filesystem
+            var filePath = Path.Combine(_imagesRoot, "full", Path.GetFileName(portrait.FullPath));
+            if (!System.IO.File.Exists(filePath))
+                return NotFound();
+
+            // Detect MIME type based on file extension
+            var contentType = Path.GetExtension(filePath).ToLower() switch
+            {
+                ".jpg" or ".jpeg" => "image/jpeg",
+                ".png" => "image/png",
+                _ => "application/octet-stream"
+            };
+
+            return PhysicalFile(filePath, contentType);
         }
 
         // GET: api/Portraits/category/{category}

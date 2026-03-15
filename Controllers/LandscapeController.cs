@@ -50,35 +50,49 @@ namespace ElliottPhotography.Controllers
             return Ok(landscapes);
         }
 
-        // GET: api/Landscapes/{id}
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetLandscapeById(int id)
+        // GET: api/Landscapes/{id}/thumb
+        [HttpGet("{id}/thumb")]
+        public async Task<IActionResult> GetThumbnail(int id)
         {
-            var landscape = await _context.Landscapes
-                .Include(l => l.Category)
-                .Include(l => l.Tags)
-                .Where(l => l.Id == id)
-                .Select(l => new LandscapeResponseDto
-                {
-                    Id = l.Id,
-                    Title = l.Title,
-                    Description = l.Description,
-                    FileName = l.FileName,
-                    CategoryId = l.CategoryId,
-                    CategoryName = l.Category != null ? l.Category.Name : "Uncategorized",
-                    UploadedAt = l.UploadedAt,
-                    Full = l.FullPath,
-                    Thumbnail = l.ThumbnailPath,
-                    Tags = l.Tags.Select(t => t.Name).ToList()
-                })
-                .FirstOrDefaultAsync();
+            var landscape = await _context.Landscapes.FindAsync(id);
+            if (landscape == null || string.IsNullOrEmpty(landscape.ThumbnailPath))
+                return NotFound();
 
-            if (landscape == null)
-                return NotFound($"No landscape found with ID {id}");
+            var filePath = Path.Combine(_imagesRoot, "thumbs", Path.GetFileName(landscape.ThumbnailPath));
+            if (!System.IO.File.Exists(filePath))
+                return NotFound();
 
-            return Ok(landscape);
+            var contentType = Path.GetExtension(filePath).ToLower() switch
+            {
+                ".jpg" or ".jpeg" => "image/jpeg",
+                ".png" => "image/png",
+                _ => "application/octet-stream"
+            };
+
+            return PhysicalFile(filePath, contentType);
         }
 
+        // GET: api/Landscapes/{id}/full
+        [HttpGet("{id}/full")]
+        public async Task<IActionResult> GetFullImage(int id)
+        {
+            var landscape = await _context.Landscapes.FindAsync(id);
+            if (landscape == null || string.IsNullOrEmpty(landscape.FullPath))
+                return NotFound();
+
+            var filePath = Path.Combine(_imagesRoot, "full", Path.GetFileName(landscape.FullPath));
+            if (!System.IO.File.Exists(filePath))
+                return NotFound();
+
+            var contentType = Path.GetExtension(filePath).ToLower() switch
+            {
+                ".jpg" or ".jpeg" => "image/jpeg",
+                ".png" => "image/png",
+                _ => "application/octet-stream"
+            };
+
+            return PhysicalFile(filePath, contentType);
+        }
         // GET: api/Landscapes/category/{category}
         [HttpGet("category/{category}")]
         public async Task<IActionResult> GetByCategory(string category)
