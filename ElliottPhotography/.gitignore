@@ -1,0 +1,41 @@
+# .NET build directories
+bin/
+obj/
+publish/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider IDE
+.idea/
+
+# OS files
+*.DS_Store
+*.Thumbs.db
+
+# Logs
+*.log
+
+# ASP.NET / wwwroot generated content
+wwwroot/images/photos/full/
+wwwroot/images/photos/thumbs/
+wwwroot/images/landscapes/full/
+wwwroot/images/landscapes/thumbs/
+wwwroot/images/portraits/full/
+wwwroot/images/portraits/thumbs/
+
+# NuGet packages
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+# Dotnet tool manifests
+dotnet-tools.json
+
+# User secrets
+secrets.json
